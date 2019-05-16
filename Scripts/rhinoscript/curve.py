@@ -667,8 +667,7 @@ def ArcAngle(curve_id, segment_index=-1):
     """Returns the angle of an arc curve object.
     Parameters:
       curve_id (guid): identifier of a curve object
-      segment_index (number, optional): identifies the curve segment if
-      curve_id (guid): identifies a polycurve
+      segment_index (number, optional): identifies the curve segment if curve_id identifies a polycurve
     Returns:
       number: The angle in degrees if successful.
     Example:
@@ -1269,7 +1268,7 @@ def CurveClosestObject(curve_id, object_ids):
     if success: return object_ids[which_geom], geom_point, curve_point
 
     
-def CurveClosestPoint(curve_id, test_point, segment_index=-1 ):
+def CurveClosestPoint(curve_id, point, segment_index=-1 ):
     """Returns parameter of the point on a curve that is closest to a test point.
     Parameters:
       curve_id (guid): identifier of a curve object
@@ -1290,7 +1289,7 @@ def CurveClosestPoint(curve_id, test_point, segment_index=-1 ):
       IsCurve
     """
     curve = rhutil.coercecurve(curve_id, segment_index, True)
-    point = rhutil.coerce3dpoint(test_point, True)
+    point = rhutil.coerce3dpoint(point, True)
     rc, t = curve.ClosestPoint(point, 0.0)
     if not rc: raise Exception("ClosestPoint failed")
     return t
@@ -2945,7 +2944,7 @@ def IsCurveInPlane(object_id, plane=None):
 def IsCurveLinear(object_id, segment_index=-1):
     """Verifies an object is a linear curve
     Parameters:
-      curve_id (guid):identifier of the curve object
+      object_id (guid):identifier of the curve object
       segment_index (number): the curve segment index if `curve_id` identifies a polycurve
     Returns:
       bool: True or False indicating success or failure
@@ -3055,7 +3054,7 @@ def IsCurveRational(curve_id, segment_index=-1):
 def IsEllipse(object_id, segment_index=-1):
     """Verifies an object is an elliptical-shaped curve
     Parameters:
-      curve_id (guid): identifier of the curve object
+      object_id (guid): identifier of the curve object
       segment_index (number, optional): the curve segment index if `curve_id` identifies a polycurve
     Returns:
       bool: True or False indicating success or failure
@@ -3101,7 +3100,7 @@ def IsLine(object_id, segment_index=-1):
 def IsPointOnCurve(object_id, point, segment_index=-1):
     """Verifies that a point is on a curve
     Parameters:
-      curve_id (guid): identifier of the curve object
+      object_id (guid): identifier of the curve object
       point (point): the test point
       segment_index (number, optional): the curve segment index if `curve_id` identifies a polycurve
     Returns:
@@ -3128,7 +3127,7 @@ def IsPointOnCurve(object_id, point, segment_index=-1):
 def IsPolyCurve(object_id, segment_index=-1):
     """Verifies an object is a PolyCurve curve
     Parameters:
-      curve_id (guid): identifier of the curve object
+      object_id (guid): identifier of the curve object
       segment_index (number, optional) the curve segment index if `curve_id` identifies a polycurve
     Returns:
       bool: True or False
@@ -3149,7 +3148,7 @@ def IsPolyCurve(object_id, segment_index=-1):
 def IsPolyline( object_id, segment_index=-1 ):
     """Verifies an object is a Polyline curve object
     Parameters:
-      curve_id (guid): identifier of the curve object
+      object_id (guid): identifier of the curve object
       segment_index (number, optional): the curve segment index if `curve_id` identifies a polycurve
     Returns:
       bool: True or False
