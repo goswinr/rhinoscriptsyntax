@@ -381,7 +381,7 @@ def AddInterpCrvOnSrfUV(surface_id, points):
     create periodic curves, but it will create closed curves.
     Parameters:
       surface_id (guid): identifier of the surface to create the curve on
-      points ([[number, number}, [number,number], ...]): a list of 2D surface parameters. The list must contain
+      points ([[number, number], [number,number], ...]): a list of 2D surface parameters. The list must contain
                                                          at least 2 sets of parameters
     Returns:
       guid: id of the new curve object if successful
@@ -3771,7 +3771,7 @@ def SplitCurve(curve_id, parameter, delete_input=True):
     be in the interior of the curve's domain
     Parameters:
       curve_id (guid): the curve to split
-      parameter ({number, ...]) one or more parameters to split the curve at
+      parameter ([number, ...]) one or more parameters to split the curve at
       delete_input (bool, optional): delete the input curve
     Returns:
       list(guid, ....): list of new curves on success

@@ -969,7 +969,7 @@ def ObjectLayout(object_id, layout=None, return_name=True):
 def ObjectLinetype(object_ids, linetype=None):
     """Returns of modifies the linetype of an object
     Parameters:
-      object_ids ({guid, ...]): identifiers of object(s)
+      object_ids ([guid, ...]): identifiers of object(s)
       linetype (str, optional): name of an existing linetype. If omitted, the current
         linetype is returned. If object_ids is a list of identifiers, this parameter
         is required

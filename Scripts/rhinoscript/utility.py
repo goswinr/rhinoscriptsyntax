@@ -497,7 +497,7 @@ def Sleep(milliseconds):
 def SortPointList(points, tolerance=None):
     """Sorts list of points so they will be connected in a "reasonable" polyline order
     Parameters:
-      points ({point, ...])the points to sort
+      points ([point, ...])the points to sort
       tolerance (number, optional): minimum distance between points. Points that fall within this tolerance
         will be discarded. If omitted, Rhino's internal zero tolerance is used.
     Returns:

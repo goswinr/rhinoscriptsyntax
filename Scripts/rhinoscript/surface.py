@@ -286,7 +286,7 @@ def AddNurbsSurface(point_count, points, knots_u, knots_v, degree, weights=None)
 def AddPatch(object_ids, uv_spans_tuple_OR_surface_object_id, tolerance=None, trim=True, point_spacing=0.1, flexibility=1.0, surface_pull=1.0, fix_edges=False):
     """Fits a surface through curve, point, point cloud, and mesh objects.
     Parameters:
-      object_ids ({guid, ...]): a list of object identifiers that indicate the objects to use for the patch fitting.
+      object_ids ([guid, ...]): a list of object identifiers that indicate the objects to use for the patch fitting.
           Acceptable object types include curves, points, point clouds, and meshes.
       uv_spans_tuple_OR_surface_object_id ([number, number]|guid):  the U and V direction span counts for the automatically generated surface OR
           The identifier of the starting surface.  It is best if you create a starting surface that is similar in shape 
@@ -380,7 +380,7 @@ def AddPipe(curve_id, parameters, radii, blend_type=0, cap=0, fit=False):
 def AddPlanarSrf(object_ids):
     """Creates one or more surfaces from planar curves
     Parameters:
-      object_ids ({guid, ...]): curves to use for creating planar surfaces
+      object_ids ([guid, ...]): curves to use for creating planar surfaces
     Returns:
       list(guid, ...): identifiers of surfaces created on success
       None: on error
@@ -444,7 +444,7 @@ def AddLoftSrf(object_ids, start=None, end=None, loft_type=0, simplify_method=0,
     - seams of closed curves are not adjusted. Use CurveSeam to adjust the seam
       of closed curves
     Parameters:
-      object_ids ({guid, guid, ...]): ordered list of the curves to loft through
+      object_ids ([guid, guid, ...]): ordered list of the curves to loft through
       start (point, optional): starting point of the loft
       end (point, optional): ending point of the loft
       loft_type (number, optional): type of loft. Possible options are:
@@ -677,7 +677,7 @@ def AddSrfPt(points):
 def AddSrfPtGrid(count, points, degree=(3,3), closed=(False,False)):
     """Creates a surface from a grid of points
     Parameters:
-      count ([number, number}): tuple of two numbers defining number of points in the u,v directions
+      count ([number, number]): tuple of two numbers defining number of points in the u,v directions
       points ([point, ...]): list of 3D points
       degree ([number, number], optional): two numbers defining degree of the surface in the u,v directions
       closed ([bool, bool], optional): two booleans defining if the surface is closed in the u,v directions
@@ -1096,7 +1096,7 @@ def EvaluateSurface(surface_id, u, v):
     """Evaluates a surface at a U,V parameter
     Parameters:
       surface_id (guid): the object's identifier.
-      u, v ({number, number]): u, v parameters to evaluate.
+      u, v ([number, number]): u, v parameters to evaluate.
     Returns:
       point: a 3-D point if successful
       None: if not successful
@@ -1124,7 +1124,7 @@ def ExtendSurface(surface_id, parameter, length, smooth=True):
     """Lengthens an untrimmed surface object
     Parameters:
       surface_id (guid): identifier of a surface
-      parameter ([number, number}): tuple of two values definfing the U,V parameter to evaluate.
+      parameter ([number, number]): tuple of two values definfing the U,V parameter to evaluate.
         The surface edge closest to the U,V parameter will be the edge that is
         extended
       length (number): amount to extend to surface
@@ -3265,7 +3265,7 @@ def UnrollSurface(surface_id, explode=False, following_geometry=None, absolute_t
     Parameters:
       surface_id (guid): the surface's identifier
       explode (bool, optional): If True, the resulting surfaces ar not joined
-      following_geometry ({guid, ...]): List of curves, dots, and points which
+      following_geometry ([guid, ...]): List of curves, dots, and points which
         should be unrolled with the surface
     Returns:
       list(guid, ...): of unrolled surface ids

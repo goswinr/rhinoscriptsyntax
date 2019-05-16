@@ -442,7 +442,7 @@ def InsertBlock( block_name, insertion_point, scale=(1,1,1), angle_degrees=0, ro
     Parameters:
       block_name (str): name of an existing block definition
       insertion_point (point): insertion point for the block
-      scale ({number, number, number]): x,y,z scale factors
+      scale ([number, number, number]): x,y,z scale factors
       angle_degrees (number, optional): rotation angle in degrees
       rotation_normal (vector, optional): the axis of rotation.
     Returns:
