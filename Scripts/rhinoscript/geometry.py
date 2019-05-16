@@ -78,10 +78,12 @@ def AddPictureFrame(plane, filename, width=0.0, height=0.0, self_illumination=Tr
   scriptcontext.doc.Views.Redraw()
   return rc
 
-def AddPoint(point, y=None, z=None):
+def AddPoint(pointOrX, y=None, z=None):
     """Adds point object to the document.
     Parameters:
-      point (point): a point3d or list(x,y,z) location of point to add
+      pointOrX (point|float): a point3d or X location of point to add
+      y (number, optional): Y location of point to add
+      z (number, optional): Z location of point to add
     Returns:
       guid: identifier for the object that was added to the doc
     Example:
@@ -91,7 +93,7 @@ def AddPoint(point, y=None, z=None):
       IsPoint
       PointCoordinates
     """
-    if y is not None: point = Rhino.Geometry.Point3d(point, y, z or 0.0)
+    if y is not None: point = Rhino.Geometry.Point3d(pointOrX, y, z or 0.0)
     point = rhutil.coerce3dpoint(point, True)
     rc = scriptcontext.doc.Objects.AddPoint(point)
     if rc==System.Guid.Empty: raise Exception("unable to add point to document")
