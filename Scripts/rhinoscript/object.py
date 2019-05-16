@@ -1735,7 +1735,7 @@ def TransformObject(object_id, matrix, copy=False):
     """Moves, scales, or rotates an object given a 4x4 transformation matrix.
     The matrix acts on the left.
     Parameters:
-      object (guid): The identifier of the object.
+      object_id (guid): The identifier of the object.
       matrix (transform): The transformation matrix (4x4 array of numbers).
       copy (bool, optional): Copy the object.
     Returns:
@@ -1775,7 +1775,7 @@ def TransformObjects(object_ids, matrix, copy=False):
     """Moves, scales, or rotates a list of objects given a 4x4 transformation
     matrix. The matrix acts on the left.
     Parameters:
-      object_ids [(guid, ...}): List of object identifiers.
+      object_ids ([guid, ...]): List of object identifiers.
       matrix (transform): The transformation matrix (4x4 array of numbers).
       copy (bool, optional): Copy the objects
     Returns:

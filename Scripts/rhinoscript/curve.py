@@ -3076,7 +3076,7 @@ def IsEllipse(object_id, segment_index=-1):
 def IsLine(object_id, segment_index=-1):
     """Verifies an object is a line curve
     Parameters:
-      curve_id (guid): identifier of the curve object
+      object_id (guid): identifier of the curve object
       segment_index (number, optional): the curve segment index if `curve_id` identifies a polycurve
     Returns:
       bool: True or False indicating success or failure
