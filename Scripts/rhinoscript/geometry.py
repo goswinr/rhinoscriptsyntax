@@ -81,7 +81,7 @@ def AddPictureFrame(plane, filename, width=0.0, height=0.0, self_illumination=Tr
 def AddPoint(pointOrX, y=None, z=None):
     """Adds point object to the document.
     Parameters:
-      pointOrX (point|float): a point3d or X location of point to add
+      pointOrX (point|number): a point3d or X location of point to add
       y (number, optional): Y location of point to add
       z (number, optional): Z location of point to add
     Returns:

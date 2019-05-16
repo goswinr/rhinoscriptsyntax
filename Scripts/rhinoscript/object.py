@@ -1054,7 +1054,7 @@ def ObjectMaterialIndex(object_id, material_index=None):
     indices into this array.
     Parameters:
       object_id (guid): identifier of an object
-      index (number, optional): the new material index
+      material_index (number, optional): the new material index
     Returns:
       number: If the return value of ObjectMaterialSource is "material by object", then
           the return value of this function is the index of the object's rendering
@@ -1559,6 +1559,7 @@ def SelectObject(object_id, redraw=True):
     """Selects a single object
     Parameters:
       object_id (guid): the identifier of the object to select
+      redraw (bool, optional): redraw view too
     Returns:
       bool: True on success
     Example:
@@ -1614,7 +1615,9 @@ def ShearObject(object_id, origin, reference_point, angle_degrees, copy=False):
     """Perform a shear transformation on a single object
     Parameters:
       object_id (guid, ...): The identifier of an object
-      origin, reference_point (point) origin/reference point of the shear transformation
+      origin (point): origin point of the shear transformation
+      reference_point (point): reference point of the shear transformation
+      angle_degrees (number): the shear angle in degrees
       copy (bool, optional): copy the objects
     Returns:
       guid: Identifier of the sheared object if successful

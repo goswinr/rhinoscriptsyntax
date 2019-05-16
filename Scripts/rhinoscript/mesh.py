@@ -910,7 +910,7 @@ def MeshOffset(mesh_id, distance):
 def MeshOutline(object_ids, view=None):
     """Creates polyline curve outlines of mesh objects
     Parameters:
-      objects_ids ([guid, ...]): identifiers of meshes to outline
+      object_ids ([guid, ...]): identifiers of meshes to outline
       view (str, optional): view to use for outline direction
     Returns:
       list(guid, ...): polyline curve identifiers on success
@@ -1031,10 +1031,10 @@ def MeshTriangleCount(object_id):
 
 
 def MeshVertexColors(mesh_id, colors=0):
-    """Returns of modifies vertex colors of a mesh
+    """Returns or modifies vertex colors of a mesh
     Parameters:
       mesh_id (guid): identifier of a mesh object
-      colors 9{color, ...], optional) A list of color values. Note, for each vertex, there must
+      colors [color, ...], optional) A list of color values. Note, for each vertex, there must
         be a corresponding vertex color. If the value is None, then any
         existing vertex colors will be removed from the mesh
     Returns:
