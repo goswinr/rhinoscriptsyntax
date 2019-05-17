@@ -1641,7 +1641,9 @@ def ShearObjects(object_ids, origin, reference_point, angle_degrees, copy=False)
     """Shears one or more objects
     Parameters:
       object_ids ([guid, ...]): The identifiers objects to shear
-      origin, reference_point (point): origin/reference point of the shear transformation
+      origin (point): origin point of the shear transformation
+      reference_point (point): reference point of the shear transformation
+      angle_degrees (number): the shear angle in degrees
       copy (bool, optional): copy the objects
     Returns:
       list(guid, ...]): identifiers of the sheared objects if successful

@@ -417,6 +417,8 @@ def Polar(point, angle_degrees, distance, plane=None):
     """Returns 3D point that is a specified angle and distance from a 3D point
     Parameters:
       point (point): the point to transform
+      angle_degrees(number,optional):angle in degrees
+      distance(number,optional):distance from point
       plane (plane, optional): plane to base the transformation. If omitted, the world
         x-y plane is used
     Returns:
@@ -662,7 +664,9 @@ def CreatePoint(point, y=None, z=None):
     Alternatively, you can also pass two coordinates singularly for a
     point on the XY plane, or three for a 3D point.
     Parameters:
-      point (Point3d|Vector3d|Point3f|Vector3f|str|guid|[number, number, number])
+      point (Point3d|Vector3d|Point3f|Vector3f|str|guid| [number, number, number]])
+      y (number,optional):y position
+      z (number,optional):z position
     Returns:
       point: a Rhino.Geometry.Point3d. This can be seen as an object with three indices:
         [0]  X coordinate
@@ -723,7 +727,8 @@ def CreateVector(vector, y=None, z=None):
     vector on the XY plane, or three for a 3D vector.
     Parameters:
       vector (Vector3d|Point3d|Point3f|Vector3f\str|guid|[number, number, number])
-      raise_on_error (bool, optionals): True or False
+      y (number,optional):y position
+      z (number,optional):z position
     Returns:
       a Rhino.Geometry.Vector3d. This can be seen as an object with three indices:
       result[0]: X component, result[1]: Y component, and result[2] Z component.
@@ -825,6 +830,9 @@ def CreatePlane(plane_or_origin, x_axis=None, y_axis=None, ignored=None):
     If the conversion fails, an error is raised.
     Parameters:
       plane (plane|point|point, vector, vector|[point, vector, vector])
+      x_axis (vector,optional):direction of X-Axis
+      y_axis (vector,optional):direction of Y-Axis
+      ignored (object,optional): this paramneter is always ignored
     Returns:
       plane: A Rhino.Geometry.plane.
     Example:
@@ -926,6 +934,9 @@ def CreateColor(color, g=None, b=None, a=None):
     for an RGBA color point.
     Parameters:
       color ([number, number, number]): list or 3 or 4 items. Also, a single int can be passed and it will be bitwise-parsed.
+      g (int,optional): green value
+      b (int,optional): blue value
+      a (int,optional): alpha value
     Returns:
       color: An object that can be indexed for red, green, blu, alpha. Item[0] is red.
     Example:
