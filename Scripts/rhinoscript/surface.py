@@ -2363,8 +2363,8 @@ def __GetMassProperties(object_id, area):
 def SplitBrep(brep_id, cutter_id, delete_input=False):
     """Splits a brep
     Parameters:
-      brep (guid): identifier of the brep to split
-      cutter (guid): identifier of the brep to split with
+      brep_id (guid): identifier of the brep to split
+      cutter_id (guid): identifier of the brep to split with
       delete_input(bool,optional): delete input breps
     Returns:
       list(guid, ...): identifiers of split pieces on success

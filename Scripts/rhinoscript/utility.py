@@ -829,7 +829,7 @@ def CreatePlane(plane_or_origin, x_axis=None, y_axis=None, ignored=None):
     The Z axis is in any case computed from the X and Y axes, so providing it is possible but not required.
     If the conversion fails, an error is raised.
     Parameters:
-      plane (plane|point|point, vector, vector|[point, vector, vector])
+      plane_or_origin (plane|point|point, vector, vector|[point, vector, vector])
       x_axis (vector,optional):direction of X-Axis
       y_axis (vector,optional):direction of Y-Axis
       ignored (object,optional): this paramneter is always ignored
@@ -1083,7 +1083,8 @@ def CreateInterval(interval, y=None):
     In case a single number is provided, it will be translated to an increasing interval that includes
     the provided input and 0. If two values are provided, they will be used instead.
     Parameters:
-      interval ([number, number]): or any item that can be accessed at index 0 and 1; an Interval
+      interval ([number, number]): or any item that can be accessed at index 0 and 1; an Interval or just the lower bound
+      y (number,optional): uper bound of interval
     Returns:
       interval: a Rhino.Geometry.Interval. This can be seen as an object made of two items:
         [0] start of interval
