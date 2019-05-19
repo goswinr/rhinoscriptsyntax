@@ -423,7 +423,7 @@ def AddInterpCurve(points, degree=3, knotstyle=0, start_tangent=None, end_tangen
       degree (number, optional): The degree of the curve (must be >=1).
           Periodic curves must have a degree >= 2. For knotstyle = 1 or 2,
           the degree must be 3. For knotstyle = 4 or 5, the degree must be odd
-      knotstyle(opt):
+      knotstyle(int,optional):
           0 Uniform knots.  Parameter spacing between consecutive knots is 1.0.
           1 Chord length spacing.  Requires degree = 3 with arrCV1 and arrCVn1 specified.
           2 Sqrt (chord length).  Requires degree = 3 with arrCV1 and arrCVn1 specified.
@@ -903,7 +903,7 @@ def ConvertCurveToPolyline(curve_id, angle_tolerance=5.0, tolerance=0.01, delete
       tolerance(number, optional): The distance tolerance at segment midpoints. If omitted, the tolerance is set to 0.01.
       delete_input(bool, optional): Delete the curve object specified by curve_id. If omitted, curve_id will not be deleted.
       min_edge_length (number, optional): Minimum segment length
-      max_edge_length (number, optonal): Maximum segment length
+      max_edge_length (number, optional): Maximum segment length
     Returns:
       guid: The new curve if successful.
     Example:
@@ -2868,7 +2868,7 @@ def IsCurveClosable(curve_id, tolerance=None):
     approximated by chord defined by 6 points
     Parameters:
       curve_id (guid): identifier of the curve object
-      tolerance[opt] = maximum allowable distance between start point and end
+      tolerance (number,optional) = maximum allowable distance between start point and end
         point. If omitted, the document's current absolute tolerance is used
     Returns:
       bool: True or False

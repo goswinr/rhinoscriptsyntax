@@ -299,7 +299,7 @@ def IsLayerLocked(layer):
     Parameters:
       layer (str|guid): the name or id of an existing layer
     Returns:
-      cool: True on success otherwise False
+      bool: True on success otherwise False
     Example:
       import rhinoscriptsyntax as rs
       layer = rs.GetString("Layer name")
@@ -647,7 +647,7 @@ def LayerId(layer):
     Parameters:
       layer (str): name of existing layer
     Returns:
-      guid (str): The layer's identifier if successful.
+      guid : The layer's identifier if successful.
       None: If not successful, or on error.
     Example:
       import rhinoscriptsyntax as  rs
