@@ -3065,7 +3065,7 @@ def SurfaceVolume(object_id):
     Parameters:
       object_id (guid): the surface's identifier
     Returns:
-      list(number, tuple(X, Y, Z): volume data returned (Volume, Error bound) on success
+      list[number, tuple(X, Y, Z)]: volume data returned (Volume, Error bound) on success
       None: on error
     Example:
       import rhinoscriptsyntax as rs
@@ -3088,7 +3088,7 @@ def SurfaceVolumeCentroid(object_id):
     Parameters:
       object_id (guid): the surface's identifier
     Returns:
-      list(point, tuple(X, Y, Z): volume data returned (Volume Centriod, Error bound) on success
+      list[point, tuple(X, Y, Z)]: volume data returned (Volume Centriod, Error bound) on success
       None: on error
     Example:
       import rhinoscriptsyntax as rs

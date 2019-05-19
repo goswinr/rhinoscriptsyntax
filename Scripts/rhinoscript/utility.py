@@ -379,7 +379,7 @@ def GetSettings(filename, section=None, entry=None):
       entry (str, optional): entry whose associated string is to be returned
     Returns:
       list(str, ...): If section is not specified, a list containing all section names
-      list:(str, ...): If entry is not specified, a list containing all entry names for a given section
+      list(str, ...): If entry is not specified, a list containing all entry names for a given section
       str: If section and entry are specified, a value for entry
       None: if not successful
     Example:
@@ -832,7 +832,7 @@ def CreatePlane(plane_or_origin, x_axis=None, y_axis=None, ignored=None):
       plane_or_origin (plane|point|point, vector, vector|[point, vector, vector])
       x_axis (vector,optional):direction of X-Axis
       y_axis (vector,optional):direction of Y-Axis
-      ignored (object,optional): this paramneter is always ignored
+      ignored (ignored,optional): this paramneter is always ignored
     Returns:
       plane: A Rhino.Geometry.plane.
     Example:
@@ -873,7 +873,7 @@ def CreateXform(xform):
     The returned data is accessible by indexing[row, column], and that is the suggested method to interact with the type.
     If the conversion fails, an error is raised.
     Parameters:
-      xform (list): the transform. This can be seen as a 4x4 matrix, given as nested lists or tuples.
+      xform (nested list): the transform. This can be seen as a 4x4 matrix, given as nested lists or tuples.
     Returns:
       transform: A Rhino.Geometry.Transform. result[0,3] gives access to the first row, last column.
     Example:
