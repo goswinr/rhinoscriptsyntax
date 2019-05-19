@@ -275,7 +275,7 @@ def DimensionText(object_id):
 
 
 def DimensionUserText(object_id, usertext=None):
-    """Returns of modifies the user text string of a dimension object. The user
+    """Returns or modifies the user text string of a dimension object. The user
     text is the string that gets printed when the dimension is defined
     Parameters:
       object_id (guid): identifier of the object

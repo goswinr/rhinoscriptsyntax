@@ -314,8 +314,7 @@ def IsDetail(layout, detail):
       layout (str|guid): title or identifier of an existing page layout
       detail (str|guid): title or identifier of an existing detail view
     Returns:
-      bool: True if detail is a detail view
-      bool: False if detail is not a detail view
+      bool: True if detail is a detail view, False if detail is not a detail view
       None: on error
     Example:
       import rhinoscriptsyntax as rs
@@ -359,8 +358,7 @@ def IsLayout(layout):
     Parameters:
       layout (guid|str): title or identifier of an existing page layout view
     Returns:
-      bool: True if layout is a page layout view
-      bool: False is layout is a standard, model view
+      bool: True if layout is a page layout view, False is layout is a standard model view
       None: on error
     Example:
       import rhinoscriptsyntax as rs

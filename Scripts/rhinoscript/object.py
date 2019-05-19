@@ -178,8 +178,7 @@ def IsLayoutObject(object_id):
     Parameters:
       object_id (guid): id of an object to test
     Returns:
-      bool: True if the object is in page layout space
-      bool: False if the object is in model space
+      bool: True if the object is in page layout space, False if the object is in model space
     Example:
       import rhinoscriptsyntax as rs
       id = rs.GetObject("Select object")
@@ -201,8 +200,7 @@ def IsObject(object_id):
     Parameters:
       object_id (guid): an object to test
     Returns:
-      bool: True if the object exists
-      bool: False if the object does not exist
+      bool: True if the object exists, False if the object does not exist
     Example:
       import rhinoscriptsyntax as rs
       #Do something here...
@@ -229,8 +227,7 @@ def IsObjectHidden(object_id):
     Parameters:
       object_id (guid): The identifier of an object to test
     Returns:
-      bool: True if the object is hidden
-      bool: False if the object is not hidden
+      bool: True if the object is hidden, False if the object is not hidden
     Example:
       import rhinoscriptsyntax as rs
       # Do something here...
@@ -260,8 +257,7 @@ def IsObjectInBox(object_id, box, test_mode=True):
       test_mode (bool, optional): If True, the object's bounding box must be contained by box
         If False, the object's bounding box must be contained by or intersect box
     Returns:
-      bool: True if object is inside box
-      bool: False is object is not inside box
+      bool: True if object is inside box, False is object is not inside box
     Example:
       import rhinoscriptsyntax as rs
       box = rs.GetBox()
@@ -292,9 +288,9 @@ def IsObjectInGroup(object_id, group_name=None):
         verifies that the object is a member of any group
     Returns:
       bool: True if the object is a member of the specified group. If a group_name
-        was not specified, the object is a member of some group.
-      bool: False if the object is not a member of the specified group. If a
-        group_name was not specified, the object is not a member of any group
+        was not specified, the object is a member of some group. 
+        False if the object  is not a member of the specified group. 
+        If a group_name was not specified, the object is not a member of any group
     Example:
       import rhinoscriptsyntax as rs
       id = rs.GetObject("Select object")
@@ -334,8 +330,7 @@ def IsObjectLocked(object_id):
     Parameters:
       object_id (guid): The identifier of an object to be tested
     Returns:
-      bool: True if the object is locked
-      bool: False if the object is not locked
+      bool: True if the object is locked, False if the object is not locked
     Example:
       import rhinoscriptsyntax as rs
       # Do something here...
@@ -363,8 +358,7 @@ def IsObjectNormal(object_id):
     Parameters:
       object_id (guid): The identifier of an object to be tested
     Returns:
-      bool: True if the object is normal
-      bool: False if the object is not normal
+      bool: True if the object is normal, False if the object is not normal
     Example:
       import rhinoscriptsyntax as rs
       #Do something here...
@@ -392,8 +386,7 @@ def IsObjectReference(object_id):
     Parameters:
       object_id (guid): The identifier of an object to test
     Returns:
-      bool: True if the object is a reference object
-      bool: False if the object is not a reference object
+      bool: True if the object is a reference object, False if the object is not a reference object
     Example:
       import rhinoscriptsyntax as rs
       id = rs.GetObject("Select object")
@@ -445,10 +438,11 @@ def IsObjectSelected(object_id):
     Parameters:
       object_id (guid): The identifier of an object to test
     Returns:
-      int: 0, the object is not selected
-      int: 1, the object is selected
-      int: 2, the object is entirely persistently selected
-      int: 3, one or more proper sub-objects are selected
+      int: 
+        0, the object is not selected
+        1, the object is selected
+        2, the object is entirely persistently selected
+        3, one or more proper sub-objects are selected
     Example:
       import rhinocsriptsyntax as rs
       object = rs.GetObject()
@@ -475,8 +469,7 @@ def IsObjectSolid(object_id):
     Parameters:
       object_id (guid): The identifier of an object to test
     Returns:
-      bool: True if the object is solid, or a mesh is closed.
-      bool: False otherwise.
+      bool: True if the object is solid, or a mesh is closed., False otherwise.
     Example:
       import rhinoscriptsyntax as rs
       id = rs.GetObject("Select object")
@@ -742,7 +735,7 @@ def MoveObjects(object_ids, translation):
 
 
 def ObjectColor(object_ids, color=None):
-    """Returns of modifies the color of an object. Object colors are represented
+    """Returns or modifies the color of an object. Object colors are represented
     as RGB colors. An RGB color specifies the relative intensity of red, green,
     and blue to cause a specific color to be displayed
     Parameters:
@@ -797,7 +790,7 @@ def ObjectColor(object_ids, color=None):
 
 
 def ObjectColorSource(object_ids, source=None):
-    """Returns of modifies the color source of an object.
+    """Returns or modifies the color source of an object.
     Parameters:
       object_ids ([guid, ...]): single identifier of list of identifiers
       source (number, optional) = new color source
@@ -967,7 +960,7 @@ def ObjectLayout(object_id, layout=None, return_name=True):
 
 
 def ObjectLinetype(object_ids, linetype=None):
-    """Returns of modifies the linetype of an object
+    """Returns or modifies the linetype of an object
     Parameters:
       object_ids ([guid, ...]): identifiers of object(s)
       linetype (str, optional): name of an existing linetype. If omitted, the current
@@ -1008,7 +1001,7 @@ def ObjectLinetype(object_ids, linetype=None):
 
 
 def ObjectLinetypeSource(object_ids, source=None):
-    """Returns of modifies the linetype source of an object
+    """Returns or modifies the linetype source of an object
     Parameters:
       object_ids ([guid, ...]): identifiers of object(s)
       source (number, optional): new linetype source. If omitted, the current source is returned.
@@ -1098,7 +1091,7 @@ def ObjectMaterialSource(object_ids, source=None):
     Returns:
       number: If source is not specified, the current rendering material source
       number: If source is specified, the previous rendering material source
-      number: If object_ids refers to multiple objects, the number of objects modified
+      number: If object_ids is a list, the number of objects modified
     Example:
       import rhinoscriptsyntax as rs
       objects = rs.GetObjects("Select objects to reset rendering material source")

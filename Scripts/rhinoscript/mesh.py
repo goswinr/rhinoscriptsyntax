@@ -119,10 +119,10 @@ def CurveMeshIntersection(curve_id, mesh_id, return_faces=False):
         If False, then just the intersection points are returned
     Returns:
       list(point, ...): if return_false is omitted or False, then a list of intersection points
-      list([point, number], ...): if return_false is True, the a one-dimensional list containing information
-        about each intersection. Each element contains the following two elements
-          [0] = point of intersection
-          [1] = mesh face index where intersection lies
+        list([point, number], ...): if return_false is True, the a one-dimensional list containing information
+          about each intersection. Each element contains the following two elements
+            [0] = point of intersection
+            [1] = mesh face index where intersection lies
       None: on error
     Example:
       import rhinoscriptsyntax as rs

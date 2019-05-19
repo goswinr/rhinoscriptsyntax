@@ -275,12 +275,7 @@ def Command(commandString, echo=True):
     """Runs a Rhino command script. All Rhino commands can be used in command
     scripts. The command can be a built-in Rhino command or one provided by a
     3rd party plug-in.
-    Parameters:
-      commandString (str): A Rhino command including any arguments
-      echo (bool, optional): The command echo mode True will display the commands on the commandline. If omitted, command prompts are echoed (True)
-    Returns:
-      bool: True or False indicating success or failure
-
+    
     Write command scripts just as you would type the command sequence at the
     command line. A space or a new line acts like pressing <Enter> at the
     command line. For more information, see "Scripting" in Rhino help.
@@ -303,6 +298,14 @@ def Command(commandString, echo=True):
         rs.Command("_Line _Pause _Pause")
     After the command script has run, you can obtain the identifiers of most
     recently created or changed object by calling LastCreatedObjects.
+    
+    Parameters:
+      commandString (str): A Rhino command including any arguments
+      echo (bool, optional): The command echo mode True will display the commands on the commandline. If omitted, command prompts are echoed (True)
+    Returns:
+      bool: True or False indicating success or failure
+
+    
     Example:
       import rhinoscriptsyntax as rs
       rs.Command("_Line 0,0,0 2,2,2")

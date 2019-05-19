@@ -731,7 +731,7 @@ def CreateVector(vector, y=None, z=None):
       z (number,optional):z position
     Returns:
       a Rhino.Geometry.Vector3d. This can be seen as an object with three indices:
-      result[0]: X component, result[1]: Y component, and result[2] Z component.
+        result[0]: X component, result[1]: Y component, and result[2] Z component.
     Example:
     See Also:
     """

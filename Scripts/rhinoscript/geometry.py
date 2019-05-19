@@ -637,7 +637,7 @@ def PointCloudKNeighbors(pt_cloud, needle_points, amount=1):
       amount (int, optional): the amount of required closest points. Defaults to 1.
     Returns:
       [int, int,...]: a list of indices of the found points, if amount equals 1.
-      [[int, ...], ...]: nested lists with amount items within a list, with the indices of the found points.
+        [[int, ...], ...]: nested lists with amount items within a list, with the indices of the found points.
     Example:
 import rhinoscriptsyntax as rs
 id = rs.GetObject("Select point cloud", rs.filter.pointcloud)
@@ -866,7 +866,7 @@ def TextDotText(object_id, text=None):
 
 
 def TextObjectFont(object_id, font=None):
-    """Returns of modifies the font used by a text object
+    """Returns or modifies the font used by a text object
     Parameters:
       object_id (guid): the identifier of a text object
       font (str): the new font face name
