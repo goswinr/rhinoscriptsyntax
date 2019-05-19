@@ -523,7 +523,7 @@ def SortPoints(points, ascending=True, order=0):
     """Sorts the components of an array of 3D points
     Parameters:
       points ([point, ...]): points to sort
-      ascending (bool, optional: ascending if omitted (True) or True, descending if False.
+      ascending (bool, optional): ascending if omitted (True) or True, descending if False.
       order (number, optional): the component sort order
         Value       Component Sort Order
         0 (default) X, Y, Z

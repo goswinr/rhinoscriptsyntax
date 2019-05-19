@@ -126,7 +126,7 @@ def XformCompare(xform1, xform2):
     Parameters:
       xform1, xform2 = matrices to compare
     Returns:
-        number:
+      number:
         -1 if xform1<xform2
          1 if xform1>xform2
          0 if xform1=xform2

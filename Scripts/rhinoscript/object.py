@@ -836,7 +836,7 @@ def ObjectDescription(object_id):
     Parameters:
       object_id = identifier of an object
     Returns:
-      A short text description of the object if successful.
+      str: A short text description of the object if successful.
     Example:
       import rhinoscriptsyntax as rs
       obj = rs.GetObject("Select object")
@@ -921,7 +921,7 @@ def ObjectLayout(object_id, layout=None, return_name=True):
         layout space, or from one page layout to another, then specify the
         title or identifier of an existing page layout view. To move an object
         from page layout space to model space, just specify None
-      return_name[opt] = If True, the name, or title, of the page layout view
+      return_name(bool,optional): If True, the name, or title, of the page layout view
         is returned. If False, the identifier of the page layout view is returned
     Returns:
       str: if layout is not specified, the object's current page layout view
@@ -1734,7 +1734,7 @@ def TransformObject(object_id, matrix, copy=False):
       matrix (transform): The transformation matrix (4x4 array of numbers).
       copy (bool, optional): Copy the object.
     Returns:
-      (guid): The identifier of the transformed object
+      guid: The identifier of the transformed object
       None: if not successful, or on error
     Example:
       # Rotate an object by theta degrees about the world Z axis

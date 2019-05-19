@@ -84,7 +84,7 @@ def AddNamedCPlane(cplane_name, view=None):
       view (guid|str): Title or identifier of the view from which to save
                the construction plane. If omitted, the current active view is used.
     Returns:
-      atr: name of the newly created construction plane if successful
+      str: name of the newly created construction plane if successful
       None: on error
     Example:
       import rhinoscriptsyntax as rs
