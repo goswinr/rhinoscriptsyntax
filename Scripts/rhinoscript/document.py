@@ -785,7 +785,8 @@ def UnitDistanceDisplayPrecision(precision=None, model_units=True):
                                     Use UnitDistanceDisplayMode to get the current distance display mode.
       model_units (bool, optional): Return or modify the document's model units (True) or the document's page units (False). The default is True.
     Returns:
-     number: If precision is not specified, the current distance display precision if successful. If precision is specified, the previous distance display precision if successful. If not successful, or on error.
+     number: If precision is not specified, the current distance display precision if successful. 
+     number: If precision is specified, the previous distance display precision if successful. 
     Example:
       import rhinoscriptsyntax as rs
       precision = 3

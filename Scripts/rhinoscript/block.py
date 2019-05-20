@@ -10,7 +10,8 @@ import System.Guid
 def InstanceObjectFromId(id, raise_if_missing=False):
     """Returns the Rhino Block instance object for a given Id
     Parameters:
-      object_id (guid): Id of block instance
+      id (guid): Id of block instance
+      raise_if_missing(bool,optional): raise error if id is missing?
     Returns:
       Rhino.DocObjects.InstanceObject: block instance object
     """

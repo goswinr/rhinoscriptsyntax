@@ -345,6 +345,7 @@ def DefaultRenderer(renderer=None):
       renderer (str, optional): The name of the renderer to set as default renderer.  If omitted the Guid of the current renderer is returned.
     Returns:
       guid: Unique identifier of default renderer
+      guid: Unique identifier of default renderer
     Example:
       import rhinoscriptsyntax as rs
       rs.DefaultRenderer("MyRenderPlugIn")
