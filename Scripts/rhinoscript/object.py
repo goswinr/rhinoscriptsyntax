@@ -834,7 +834,7 @@ def ObjectColorSource(object_ids, source=None):
 def ObjectDescription(object_id):
     """Returns a short text description of an object
     Parameters:
-      object_id = identifier of an object
+      object_id (guid): identifier of an object
     Returns:
       str: A short text description of the object if successful.
     Example:

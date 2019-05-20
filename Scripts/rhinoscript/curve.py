@@ -1385,7 +1385,8 @@ def CurveCurveIntersection(curveA, curveB=None, tolerance=-1):
       tolerance (number, optional): absolute tolerance in drawing units. If omitted,
                         the document's current absolute tolerance is used.
     Returns:
-      list of tuples: containing intersection information if successful.
+      list(list(point, point, point, point, number, number, number, number, number, number), ...):
+        list of tuples: containing intersection information if successful.
         The list will contain one or more of the following elements:
           Element Type     Description
           [n][0]  Number   The intersection event type, either Point (1) or Overlap (2).

@@ -327,7 +327,7 @@ def SelectedObjectGrips(object_id):
     Parameters:
       object_id (guid): identifier of the object
     Returns:
-      list(number): list of indices on success
+      list(int,...): list of indices on success
       None: on failure or if no grips are selected
     Example:
       import rhinoscriptsyntax as rs

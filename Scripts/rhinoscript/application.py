@@ -100,7 +100,7 @@ def AliasMacro(alias, macro=None):
 def AliasNames():
     """Returns a list of command alias names.
     Returns:
-      str: a list of command alias names.
+      list(str, ...): a list of command alias names.
     Example:
       import rhinoscriptsyntax as rs
       aliases = rs.AliasNames()

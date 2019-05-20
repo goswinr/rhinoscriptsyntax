@@ -95,6 +95,12 @@ def FirstObject(select=False, include_lights=False, include_grips=False):
 
 
 def __FilterHelper(filter):
+    """A helper Function for Rhino.DocObjects.ObjectType Enum
+    Parameters:
+      filter (int): int representing one or several Enums as used ion Rhinopython for object types.
+    Returns:
+      Rhino.DocObjects.ObjectType: translated Rhino.DocObjects.ObjectType Enum
+    """
     geometry_filter = Rhino.DocObjects.ObjectType.None
     if filter & 1:
         geometry_filter |= Rhino.DocObjects.ObjectType.Point
@@ -145,7 +151,7 @@ def GetCurveObject(message=None, preselect=False, select=False):
       select (bool, optional): Select the picked objects. If False, objects that
         are picked are not selected.
     Returns:
-      Tuple containing the following information
+      (guid,bool,int,point,number,str): Tuple containing the following information
         [0]  guid     identifier of the curve object
         [1]  bool     True if the curve was preselected, otherwise False
         [2]  number   selection method
@@ -191,7 +197,7 @@ def GetCurveObject(message=None, preselect=False, select=False):
     viewname = go.View().ActiveViewport.Name
     obj = go.Object(0).Object()
     go.Dispose()
-    if not select and not presel:
+    if not select and not preselect:
         scriptcontext.doc.Objects.UnselectAll()
         scriptcontext.doc.Views.Redraw()
     obj.Select(select)
@@ -256,7 +262,7 @@ def GetObject(message=None, filter=0, preselect=False, select=False, custom_filt
     obj = objref.Object()
     presel = go.ObjectsWerePreselected
     go.Dispose()
-    if not select and not presel:
+    if not select and not preselect:
         scriptcontext.doc.Objects.UnselectAll()
         scriptcontext.doc.Views.Redraw()
     if subobjects: return objref
