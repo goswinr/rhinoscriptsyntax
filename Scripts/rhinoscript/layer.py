@@ -623,6 +623,7 @@ def LayerMaterialIndex(layer,index=None):
       index (number, optional): the new material index
     Returns:
       number: a zero-based material index if successful
+      number: a zero-based material index if successful
     Example:
       import rhinoscriptsyntax as rs
       index = rs.LayerMaterialIndex("Default")

@@ -532,6 +532,7 @@ def PointCloudHidePoints(object_id, hidden=[]):
       hidden ([bool, ....]): list of booleans matched to the index of points to be hidden
     Returns:
       list(bool, ....): List of point cloud hidden states
+      list(bool, ....): List of point cloud hidden states
     Example:
       import rhinoscriptsyntax as rs
       obj = rs.GetObject("Select point cloud", rs.filter.pointcloud)
@@ -566,6 +567,7 @@ def PointCloudPointColors(object_id, colors=[]):
       object_id (guid): the point cloud object's identifier
       colors ([color, ...]) list of color values if you want to adjust colors
     Returns:
+      list(color, ...): List of point cloud colors
       list(color, ...): List of point cloud colors
     Example:
       import rhinoscriptsyntax as rs
