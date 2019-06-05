@@ -712,7 +712,7 @@ def RenderSettings(settings=None):
 
 
 def UnitAbsoluteTolerance(tolerance=None, in_model_units=True):
-    """Resturns or sets the document's absolute tolerance. Absolute tolerance
+    """Returns or sets the document's absolute tolerance. Absolute tolerance
     is measured in drawing units. See Rhino's document properties command
     (Units and Page Units Window) for details
     Parameters:
