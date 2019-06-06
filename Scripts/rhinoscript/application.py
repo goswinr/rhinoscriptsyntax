@@ -900,21 +900,21 @@ def OsnapMode(mode=None):
     """Returns or sets the object snap mode. Object snaps are tools for
     specifying points on existing objects
     Parameters:
-      mode (number, optional): The object snap mode or modes to set. Object snap modes
-                     can be added together to set multiple modes
-                     0          None
-                     2          Near
-                     8          Focus
-                     32         Center
-                     64         Vertex
-                     128        Knot
-                     512        Quadrant
-                     2048       Midpoint
-                     8192       Intersection
-                     131072     End
-                     524288     Perpendicular
-                     2097152    Tangent
-                     134217728  Point
+      mode (number, optional): The object snap mode or modes to set. 
+        0          None
+        2          Near
+        8          Focus
+        32         Center
+        64         Vertex
+        128        Knot
+        512        Quadrant
+        2048       Midpoint
+        8192       Intersection
+        131072     End
+        524288     Perpendicular
+        2097152    Tangent
+        134217728  Point
+        Object snap modes can be added together to set multiple modes
     Returns:
       number: if mode is not specified, then the current object snap mode(s)
       number: if mode is specified, then the previous object snap mode(s)
