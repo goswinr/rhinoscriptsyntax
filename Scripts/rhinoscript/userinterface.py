@@ -258,11 +258,11 @@ def GetColor(color=None):
 def GetCursorPos():
     """Retrieves the cursor's position
     Returns:
-      tuple(point, point, guid, point) containing the following information
-        [0]  cursor position in world coordinates
-        [1]  cursor position in screen coordinates
-        [2]  id of the active viewport
-        [3]  cursor position in client coordinates
+      tuple(point, point, guid, point): containing the following information
+        0  cursor position in world coordinates
+        1  cursor position in screen coordinates
+        2  id of the active viewport
+        3  cursor position in client coordinates
     Example:
       import rhinoscriptsyntax as  rs
       world, screen, view, client  = rs.GetCursorPos()
