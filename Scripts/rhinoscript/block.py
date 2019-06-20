@@ -160,13 +160,14 @@ def BlockDescription(block_name, description=None):
 
 def BlockInstanceCount(block_name,where_to_look=0):
     """Counts number of instances of the block in the document.
-    Nested instances are not included in the count.
+    Nested instances are not included in the count. Attention this may include deleted blocks.
     Parameters:
       block_name (str): the name of an existing block definition
       where_to_look (number, optional):
         0 = get top level references in active document.
-        1 = get top level and nested references in active document.
-        2 = check for references from other instance definitions
+        1 = get top level and nested references in active document. 
+            If a block is nested more than once within another block it will be counted only once.
+        2 = check for references from other instance definitions, counts every instance of nested block
     Returns:
       number: the number of instances of the block in the document
     Example:
@@ -234,13 +235,14 @@ def BlockInstanceName(object_id):
 
 
 def BlockInstances(block_name,where_to_look=0):
-    """Returns the identifiers of the inserted instances of a block.
+    """Returns the identifiers of the inserted instances of a block. Attention this may include deleted blocks.
     Parameters:
       block_name (str): the name of an existing block definition
       where_to_look (number, optional):
         0 = get top level references in active document.
-        1 = get top level and nested references in active document.
-        2 = check for references from other instance definitions
+        1 = get top level and nested references in active document. 
+            If a block is nested more than once within another block it will be counted only once.
+        2 = check for references from other instance definitions, counts every instance of nested block
     Returns:
       list(guid, ...): Ids identifying the instances of a block in the model.
     Example:
