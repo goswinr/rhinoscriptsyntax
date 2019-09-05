@@ -235,15 +235,13 @@ def BlockInstanceName(object_id):
 
 
 def BlockInstances(block_name,where_to_look=0):
-    """Returns the identifiers of the inserted instances of a block. Attention this may include deleted blocks.
+    """Returns the identifiers of the inserted instances of a block.
     Parameters:
       block_name (str): the name of an existing block definition
       where_to_look (number, optional):
-        One of the following values:
         0 = get top level references in active document.
-        1 = get top level and nested references in active document. 
-            If a block is nested more than once within another block it will be counted only once.
-        2 = check for references from other instance definitions, counts every instance of nested block
+        1 = get top level and nested references in active document.
+        2 = check for references from other instance definitions
     Returns:
       list(guid, ...): Ids identifying the instances of a block in the model.
     Example:
