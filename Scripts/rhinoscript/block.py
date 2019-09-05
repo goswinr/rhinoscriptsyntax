@@ -238,7 +238,7 @@ def BlockInstances(block_name,where_to_look=0):
     """Returns the identifiers of the inserted instances of a block.
     Parameters:
       block_name (str): the name of an existing block definition
-      where_to_look (number, optional):
+      where_to_look (int, optional):
         0 = get top level references in active document.
         1 = get top level and nested references in active document.
         2 = check for references from other instance definitions
