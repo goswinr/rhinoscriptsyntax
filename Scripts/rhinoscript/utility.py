@@ -730,7 +730,7 @@ def CreateVector(vector, y=None, z=None):
       y (number,optional):y position
       z (number,optional):z position
     Returns:
-      a Rhino.Geometry.Vector3d. This can be seen as an object with three indices:
+      vector: a Rhino.Geometry.Vector3d. This can be seen as an object with three indices:
         result[0]: X component, result[1]: Y component, and result[2] Z component.
     Example:
     See Also:
@@ -822,7 +822,7 @@ def coerceplane(plane, raise_on_bad_input=False):
     if raise_on_bad_input: raise TypeError("%s can not be converted to a Plane"%plane)
 
 
-def CreatePlane(plane_or_origin, x_axis=None, y_axis=None, ignored=None):
+def CreatePlane(plane_or_origin, x_axis=None, y_axis=None):
     """Converts input into a Rhino.Geometry.Plane object if possible.
     If the provided object is already a plane, its value is copied.
     The returned data is accessible by indexing[origin, X axis, Y axis, Z axis], and that is the suggested method to interact with the type.
@@ -832,9 +832,8 @@ def CreatePlane(plane_or_origin, x_axis=None, y_axis=None, ignored=None):
       plane_or_origin (plane|point|point, vector, vector|[point, vector, vector])
       x_axis (vector,optional):direction of X-Axis
       y_axis (vector,optional):direction of Y-Axis
-      ignored (ignored,optional): this paramneter is always ignored
     Returns:
-      plane: A Rhino.Geometry.plane.
+      plane: A Rhino.Geometry.Plane
     Example:
     See Also:
     """
@@ -1086,7 +1085,7 @@ def CreateInterval(interval, y=None):
       interval ([number, number]): or any item that can be accessed at index 0 and 1; an Interval or just the lower bound
       y (number,optional): uper bound of interval
     Returns:
-      interval: a Rhino.Geometry.Interval. This can be seen as an object made of two items:
+      a Rhino.Geometry.Interval: This can be seen as an object made of two items:
         [0] start of interval
         [1] end of interval
     Example:

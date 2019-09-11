@@ -280,7 +280,7 @@ def GetCursorPos():
     return world_pt, screen_pt, viewport.Id, client_pt
 
 
-def GetDistance(first_pt=None, distance=None, first_pt_msg='First distance point', second_pt_msg='Second distance point'):
+def GetDistance(first_pt=None, distance=None, first_pt_msg="First distance point", second_pt_msg="Second distance point"):
     """Pauses for user input of a distance.
     Parameters:
       first_pt (point, optional): First distance point
