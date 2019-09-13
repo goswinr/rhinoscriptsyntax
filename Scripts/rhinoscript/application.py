@@ -39,7 +39,7 @@ def AddSearchPath(folder, index=-1):
                              If omitted, path will be appended to the end of the
                              search path list.
     Returns:
-      number: The index where the item was inserted if success.
+      int: The index where the item was inserted if success.
            -1 on failure.
     Example:
       import rhinoscriptsyntax as rs
@@ -135,8 +135,8 @@ def AppearanceColor(item, color=None):
              13 = Text hover
       color ([r255,g255,b255], optional): The new color value in (r255,g255,b255). If omitted, the current item color is returned.
     Returns:
-      tuple (r255,g255,b255): if color is not specified, the current item color.
-      tuple (r255,g255,b255): if color is specified, the previous item color.
+      color (r255,g255,b255): if color is not specified, the current item color.
+      color (r255,g255,b255): if color is specified, the previous item color.
     Example:
       import rhinoscriptsyntax as rs
       oldColor = rs.AppearanceColor(0)
