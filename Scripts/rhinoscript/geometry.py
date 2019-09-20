@@ -148,7 +148,7 @@ def AddPoints(points):
     return rc
 
 
-def AddText(text, point_or_plane, height=1.0, font="Arial", font_style=0, justification=None):
+def AddText(text, point_or_plane, height=1.0, font=None, font_style=0, justification=None):
     """Adds a text string to the document
     Parameters:
       text (str): the text to display
@@ -186,14 +186,62 @@ def AddText(text, point_or_plane, height=1.0, font="Arial", font_style=0, justif
     if not plane:
         plane = scriptcontext.doc.Views.ActiveView.ActiveViewport.ConstructionPlane()
         plane.Origin = point
+    if font != None and type(font) != str:
+      raise ValueError("font needs to be a quartet name")
     bold = (1==font_style or 3==font_style)
     italic = (2==font_style or 3==font_style)
-    id = None
-    if justification is None:
-        id = scriptcontext.doc.Objects.AddText(text, plane, height, font, bold, italic)
+
+    ds = scriptcontext.doc.DimStyles.Current
+    if font == None:
+      qn = ds.Font.QuartetName
+      quartetBoldProp = ds.Font.Bold
+      quartetItalicProp = ds.Font.Bold
     else:
-        just = System.Enum.ToObject(Rhino.Geometry.TextJustification, justification)
-        id = scriptcontext.doc.Objects.AddText(text, plane, height, font, bold, italic, just)
+      qn = font
+      quartetBoldProp = False
+      quartetItalicProp = False
+
+    f = Rhino.DocObjects.Font.FromQuartetProperties(qn, quartetBoldProp, quartetItalicProp)
+    if f == None:
+        print("font error: there is a problem with the font {} and cannot be used to create a text entity".format(font))
+        return scriptcontext.errorhandler()
+
+    te = Rhino.Geometry.TextEntity.Create(text, plane, ds, False, 0, 0)
+    te.TextHeight = height
+
+    if font != None:
+      te.Font = f
+
+    if bold != quartetBoldProp:
+        if Rhino.DocObjects.Font.FromQuartetProperties(qn, bold, False) == None:
+          print("'{}' does not have a 'bold' property so it will not be set.".format(qn))
+        else:
+          te.SetBold(bold)
+    if italic != quartetItalicProp:
+        if Rhino.DocObjects.Font.FromQuartetProperties(qn, False, italic) == None:
+          print("'{}' does not have an 'italic' property so it will not be set.".format(qn))
+        else:
+          te.SetItalic(italic)
+
+    if justification is not None:
+        h_map = [(1,0), (2,1), (4,2)]
+        v_map = [(65536,5), (131072,3), (262144,0)]
+
+        def getOneAlignFromMap(j, m, e):
+            lst = []
+            for k, v in m:
+                if j & k:
+                    lst.append(v)
+            return System.Enum.ToObject(e, lst[0]) if lst else None
+
+        h = getOneAlignFromMap(justification, h_map, Rhino.DocObjects.TextHorizontalAlignment)
+        if h != None:
+            te.TextHorizontalAlignment = h
+        v = getOneAlignFromMap(justification, v_map, Rhino.DocObjects.TextVerticalAlignment)
+        if v != None:
+            te.TextVerticalAlignment = v
+
+    id = scriptcontext.doc.Objects.Add(te);
     if id==System.Guid.Empty: raise ValueError("unable to add text to document")
     scriptcontext.doc.Views.Redraw()
     return id
