@@ -924,7 +924,7 @@ def UnitSystem(unit_system=None, scale=False, in_model_units=True):
         25 - Parsecs (3.08567758e+16)
       scale (bool, optional): Scale existing geometry based on the new unit system.
           If not specified, any existing geometry is not scaled (False)
-      in_model_units (number, optional): Return or modify the document's model units (True)
+      in_model_units (bool, optional): Return or modify the document's model units (True)
           or the document's page units (False). The default is True.
     Returns:
       number: if unit_system is not specified, the current unit system
