@@ -1662,7 +1662,7 @@ def IsPointInSurface(object_id, point, strictly_in=False, tolerance=None):
     object_id = rhutil.coerceguid(object_id, True)
     point = rhutil.coerce3dpoint(point, True)
     if object_id==None or point==None: return scriptcontext.errorhandler()
-    obj = scriptcontext.doc.Objects.Find(object_id)
+    obj = scriptcontext.doc.Objects.FindId(object_id)
     if tolerance is None: tolerance = Rhino.RhinoMath.SqrtEpsilon
     brep = None
     if type(obj)==Rhino.DocObjects.ExtrusionObject:
@@ -2341,7 +2341,7 @@ def ShrinkTrimmedSurface(object_id, create_copy=False):
     rc = None
     object_id = rhutil.coerceguid(object_id)
     if create_copy:
-        oldobj = scriptcontext.doc.Objects.Find(object_id)
+        oldobj = scriptcontext.doc.Objects.FindId(object_id)
         attr = oldobj.Attributes
         rc = scriptcontext.doc.Objects.AddBrep(brep, attr)
     else:

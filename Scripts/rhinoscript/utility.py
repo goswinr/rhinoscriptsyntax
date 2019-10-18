@@ -949,7 +949,7 @@ def CreateColor(color, g=None, b=None, a=None):
 def coerceline(line, raise_if_bad_input=False):
     if type(line) is Rhino.Geometry.Line: return line
     guid = coerceguid(line, False)
-    if guid: line = scriptcontext.doc.Objects.Find(guid).Geometry
+    if guid: line = scriptcontext.doc.Objects.FindId(guid).Geometry
     if isinstance(line, Rhino.Geometry.Curve) and line.IsLinear:
         return Rhino.Geometry.Line(line.PointAtStart, line.PointAtEnd)
     points = coerce3dpointlist(line, raise_if_bad_input)
@@ -970,7 +970,7 @@ def coercegeometry(id, raise_if_missing=False):
     if isinstance(id, Rhino.DocObjects.RhinoObject): return id.Geometry
     id = coerceguid(id, raise_if_missing)
     if id:
-        rhobj = scriptcontext.doc.Objects.Find(id)
+        rhobj = scriptcontext.doc.Objects.FindId(id)
         if rhobj: return rhobj.Geometry
     if raise_if_missing: raise ValueError("unable to convert %s into geometry"%id)
 
@@ -1003,7 +1003,7 @@ def coercecurve(id, segment_index=-1, raise_if_missing=False):
     if isinstance(id, Rhino.Geometry.Curve): return id
     if type(id) is Rhino.DocObjects.ObjRef: return id.Curve()
     id = coerceguid(id, True)
-    crvObj = scriptcontext.doc.Objects.Find(id)
+    crvObj = scriptcontext.doc.Objects.FindId(id)
     if crvObj:
         curve = crvObj.Geometry
         if curve and segment_index>=0 and type(curve) is Rhino.Geometry.PolyCurve:
@@ -1026,7 +1026,7 @@ def coercesurface(object_id, raise_if_missing=False):
     if isinstance(object_id, Rhino.Geometry.Brep) and object_id.Faces.Count==1: return object_id.Faces[0]
     if type(object_id) is Rhino.DocObjects.ObjRef: return object_id.Face()
     object_id = coerceguid(object_id, True)
-    srfObj = scriptcontext.doc.Objects.Find(object_id)
+    srfObj = scriptcontext.doc.Objects.FindId(object_id)
     if srfObj:
         srf = srfObj.Geometry
         if isinstance(srf, Rhino.Geometry.Surface): return srf
@@ -1050,7 +1050,7 @@ def coercemesh(object_id, raise_if_missing=False):
     if isinstance(object_id, Rhino.Geometry.Mesh): return object_id
     object_id = coerceguid(object_id, raise_if_missing)
     if object_id: 
-        meshObj = scriptcontext.doc.Objects.Find(object_id)
+        meshObj = scriptcontext.doc.Objects.FindId(object_id)
         if meshObj:
             mesh = meshObj.Geometry
             if isinstance(mesh, Rhino.Geometry.Mesh): return mesh
@@ -1071,7 +1071,7 @@ def coercerhinoobject(object_id, raise_if_bad_input=False, raise_if_missing=Fals
     if isinstance(object_id, Rhino.DocObjects.RhinoObject): return object_id
     object_id = coerceguid(object_id, raise_if_bad_input)
     if object_id is None: return None
-    rc = scriptcontext.doc.Objects.Find(object_id)
+    rc = scriptcontext.doc.Objects.FindId(object_id)
     if not rc and raise_if_missing: raise ValueError("%s does not exist in ObjectTable" % object_id)
     return rc
 

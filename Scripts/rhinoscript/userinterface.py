@@ -947,7 +947,7 @@ def ListBox(items, message=None, title=None, default=None):
       title (str, optional): a dialog box title
       default (str, optional): selected item in the list
     Returns:
-      str: he selected item if successful
+      str: the selected item if successful
       None: if not successful or on error
     Example:
       import rhinoscriptsyntax as rs

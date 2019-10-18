@@ -524,7 +524,7 @@ def IsVisibleInView(object_id, view=None):
     """Verifies an object is visible in a view
     Parameters:
       object_id (guid): the identifier of an object to test
-      view (str, optional): he title of the view.  If omitted, the current active view is used.
+      view (str, optional): the title of the view.  If omitted, the current active view is used.
     Returns:
       bool: True if the object is visible in the specified view, otherwise False.  None on error
     Example:

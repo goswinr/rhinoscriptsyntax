@@ -266,7 +266,7 @@ def DetailLock(detail_id, lock=None):
       IsLayout
     """
     detail_id = rhutil.coerceguid(detail_id, True)
-    detail = scriptcontext.doc.Objects.Find(detail_id)
+    detail = scriptcontext.doc.Objects.FindId(detail_id)
     if not detail: return scriptcontext.errorhandler()
     rc = detail.DetailGeometry.IsProjectionLocked
     if lock is not None and lock!=rc:
@@ -294,7 +294,7 @@ def DetailScale(detail_id, model_length=None, page_length=None):
       IsLayout
     """
     detail_id = rhutil.coerceguid(detail_id, True)
-    detail = scriptcontext.doc.Objects.Find(detail_id)
+    detail = scriptcontext.doc.Objects.FindId(detail_id)
     if detail is None: return scriptcontext.errorhandler()
     rc = detail.DetailGeometry.PageToModelRatio
     if model_length or page_length:

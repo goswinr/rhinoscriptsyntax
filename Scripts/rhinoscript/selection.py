@@ -545,7 +545,7 @@ def GetPointCoordinates(message="Select points", preselect=False):
     ids = GetObjects(message, filter.point, preselect=preselect)
     rc = []
     for id in ids:
-        rhobj = scriptcontext.doc.Objects.Find(id)
+        rhobj = scriptcontext.doc.Objects.FindId(id)
         rc.append(rhobj.Geometry.Location)
     return rc
 
