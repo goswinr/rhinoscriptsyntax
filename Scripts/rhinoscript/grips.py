@@ -101,7 +101,7 @@ def GetObjectGrips(message=None, preselect=False, select=False):
     return rc
 
 
-def Neighborgrip(i, object_id, index, direction, enable):
+def __neighborgrip(i, object_id, index, direction, enable):
     rhobj = rhutil.coercerhinoobject(object_id, True, True)
     grips = rhobj.GetGrips()
     if not grips or len(grips)<=index: return scriptcontext.errorhandler()
@@ -114,7 +114,7 @@ def Neighborgrip(i, object_id, index, direction, enable):
     if next_grip and enable:
         next_grip.Select(True)
         scriptcontext.doc.Views.Redraw()
-    return next_grip
+    return next_grip.Index
 
 
 def NextObjectGrip(object_id, index, direction=0, enable=True):
