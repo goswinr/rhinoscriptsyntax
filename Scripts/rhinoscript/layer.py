@@ -98,7 +98,7 @@ def CurrentLayer(layer=None):
     rc = scriptcontext.doc.Layers.CurrentLayer.FullPath
     if layer:
         layer = __getlayer(layer, True)
-        scriptcontext.doc.Layers.SetCurrentLayerIndex(layer.LayerIndex, True)
+        scriptcontext.doc.Layers.SetCurrentLayerIndex(layer.Index, True)
     return rc
 
 
@@ -123,7 +123,7 @@ def DeleteLayer(layer):
       RenameLayer
     """
     layer = __getlayer(layer, True)
-    return scriptcontext.doc.Layers.Delete( layer.LayerIndex, True)
+    return scriptcontext.doc.Layers.Delete( layer.Index, True)
 
 
 def ExpandLayer( layer, expand ):
@@ -245,7 +245,7 @@ def IsLayerCurrent(layer):
       IsLayerVisible
     """
     layer = __getlayer(layer, True)
-    return layer.LayerIndex == scriptcontext.doc.Layers.CurrentLayerIndex
+    return layer.Index == scriptcontext.doc.Layers.CurrentLayerIndex
 
 
 def IsLayerEmpty(layer):
@@ -870,7 +870,7 @@ def PurgeLayer(layer):
       RenameLayer
     """
     layer = __getlayer(layer, True)
-    rc = scriptcontext.doc.Layers.Purge( layer.LayerIndex, True)
+    rc = scriptcontext.doc.Layers.Purge( layer.Index, True)
     scriptcontext.doc.Views.Redraw()
     return rc
 
