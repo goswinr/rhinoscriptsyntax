@@ -381,7 +381,7 @@ def AddInterpCrvOnSrfUV(surface_id, points):
     create periodic curves, but it will create closed curves.
     Parameters:
       surface_id (guid): identifier of the surface to create the curve on
-      points ([[number, number}, [number,number], ...]): a list of 2D surface parameters. The list must contain
+      points ([[number, number], [number,number], ...]): a list of 2D surface parameters. The list must contain
                                                          at least 2 sets of parameters
     Returns:
       guid: id of the new curve object if successful
@@ -423,7 +423,7 @@ def AddInterpCurve(points, degree=3, knotstyle=0, start_tangent=None, end_tangen
       degree (number, optional): The degree of the curve (must be >=1).
           Periodic curves must have a degree >= 2. For knotstyle = 1 or 2,
           the degree must be 3. For knotstyle = 4 or 5, the degree must be odd
-      knotstyle(opt):
+      knotstyle(int,optional):
           0 Uniform knots.  Parameter spacing between consecutive knots is 1.0.
           1 Chord length spacing.  Requires degree = 3 with arrCV1 and arrCVn1 specified.
           2 Sqrt (chord length).  Requires degree = 3 with arrCV1 and arrCVn1 specified.
@@ -665,8 +665,7 @@ def ArcAngle(curve_id, segment_index=-1):
     """Returns the angle of an arc curve object.
     Parameters:
       curve_id (guid): identifier of a curve object
-      segment_index (number, optional): identifies the curve segment if
-      curve_id (guid): identifies a polycurve
+      segment_index (number, optional): identifies the curve segment if curve_id identifies a polycurve
     Returns:
       number: The angle in degrees if successful.
     Example:
@@ -902,7 +901,7 @@ def ConvertCurveToPolyline(curve_id, angle_tolerance=5.0, tolerance=0.01, delete
       tolerance(number, optional): The distance tolerance at segment midpoints. If omitted, the tolerance is set to 0.01.
       delete_input(bool, optional): Delete the curve object specified by curve_id. If omitted, curve_id will not be deleted.
       min_edge_length (number, optional): Minimum segment length
-      max_edge_length (number, optonal): Maximum segment length
+      max_edge_length (number, optional): Maximum segment length
     Returns:
       guid: The new curve if successful.
     Example:
@@ -1234,10 +1233,10 @@ def CurveClosestObject(curve_id, object_ids):
         polysurface to test against
     Returns:
       tuple[guid, point, point]: containing the results of the closest point calculation.
-      The elements are as follows:
-        [0]    The identifier of the closest object.
-        [1]    The 3-D point that is closest to the closest object.
-        [2]    The 3-D point that is closest to the test curve.
+        The elements are as follows:
+          [0]    The identifier of the closest object.
+          [1]    The 3-D point that is closest to the closest object.
+          [2]    The 3-D point that is closest to the test curve.
     Example:
       import rhinoscriptsyntax as rs
       filter = rs.filter.curve | rs.filter.pointcloud | rs.filter.surface | rs.filter.polysurface
@@ -1267,7 +1266,7 @@ def CurveClosestObject(curve_id, object_ids):
     if success: return object_ids[which_geom], geom_point, curve_point
 
     
-def CurveClosestPoint(curve_id, test_point, segment_index=-1 ):
+def CurveClosestPoint(curve_id, point, segment_index=-1 ):
     """Returns parameter of the point on a curve that is closest to a test point.
     Parameters:
       curve_id (guid): identifier of a curve object
@@ -1288,7 +1287,7 @@ def CurveClosestPoint(curve_id, test_point, segment_index=-1 ):
       IsCurve
     """
     curve = rhutil.coercecurve(curve_id, segment_index, True)
-    point = rhutil.coerce3dpoint(test_point, True)
+    point = rhutil.coerce3dpoint(point, True)
     rc, t = curve.ClosestPoint(point, 0.0)
     if not rc: raise Exception("ClosestPoint failed")
     return t
@@ -1384,34 +1383,35 @@ def CurveCurveIntersection(curveA, curveB=None, tolerance=-1):
       tolerance (number, optional): absolute tolerance in drawing units. If omitted,
                         the document's current absolute tolerance is used.
     Returns:
-      list of tuples: containing intersection information if successful.
-      The list will contain one or more of the following elements:
-        Element Type     Description
-        [n][0]  Number   The intersection event type, either Point (1) or Overlap (2).
-        [n][1]  Point3d  If the event type is Point (1), then the intersection point 
-                         on the first curve. If the event type is Overlap (2), then
-                         intersection start point on the first curve.
-        [n][2]  Point3d  If the event type is Point (1), then the intersection point
-                         on the first curve. If the event type is Overlap (2), then
-                         intersection end point on the first curve.
-        [n][3]  Point3d  If the event type is Point (1), then the intersection point 
-                         on the second curve. If the event type is Overlap (2), then
-                         intersection start point on the second curve.
-        [n][4]  Point3d  If the event type is Point (1), then the intersection point
-                         on the second curve. If the event type is Overlap (2), then
-                         intersection end point on the second curve.
-        [n][5]  Number   If the event type is Point (1), then the first curve parameter.
-                         If the event type is Overlap (2), then the start value of the
-                         first curve parameter range.
-        [n][6]  Number   If the event type is Point (1), then the first curve parameter.
-                         If the event type is Overlap (2), then the end value of the
-                         first curve parameter range.
-        [n][7]  Number   If the event type is Point (1), then the second curve parameter.
-                         If the event type is Overlap (2), then the start value of the
-                         second curve parameter range.
-        [n][8]  Number   If the event type is Point (1), then the second curve parameter.
-                         If the event type is Overlap (2), then the end value of the 
-                         second curve parameter range.
+      list(list(point, point, point, point, number, number, number, number, number, number), ...):
+        list of tuples: containing intersection information if successful.
+        The list will contain one or more of the following elements:
+          Element Type     Description
+          [n][0]  Number   The intersection event type, either Point (1) or Overlap (2).
+          [n][1]  Point3d  If the event type is Point (1), then the intersection point 
+                          on the first curve. If the event type is Overlap (2), then
+                          intersection start point on the first curve.
+          [n][2]  Point3d  If the event type is Point (1), then the intersection point
+                          on the first curve. If the event type is Overlap (2), then
+                          intersection end point on the first curve.
+          [n][3]  Point3d  If the event type is Point (1), then the intersection point 
+                          on the second curve. If the event type is Overlap (2), then
+                          intersection start point on the second curve.
+          [n][4]  Point3d  If the event type is Point (1), then the intersection point
+                          on the second curve. If the event type is Overlap (2), then
+                          intersection end point on the second curve.
+          [n][5]  Number   If the event type is Point (1), then the first curve parameter.
+                          If the event type is Overlap (2), then the start value of the
+                          first curve parameter range.
+          [n][6]  Number   If the event type is Point (1), then the first curve parameter.
+                          If the event type is Overlap (2), then the end value of the
+                          first curve parameter range.
+          [n][7]  Number   If the event type is Point (1), then the second curve parameter.
+                          If the event type is Overlap (2), then the start value of the
+                          second curve parameter range.
+          [n][8]  Number   If the event type is Point (1), then the second curve parameter.
+                          If the event type is Overlap (2), then the end value of the 
+                          second curve parameter range.
     Example:
       import rhinoscriptsyntax as rs
       def ccx():
@@ -1707,14 +1707,14 @@ def CurveFilletPoints(curve_id_0, curve_id_1, radius=1.0, base_point_0=None, bas
                      it's identifier is returned.
     Returns:
       list(point, point, point, vector, vector, vector): If return_points is True, then a list of point and vector values
-      if successful. The list elements are as follows:
-          [0]    A point on the first curve at which to cut (point).
-          [1]    A point on the second curve at which to cut (point).
-          [2]    The fillet plane's origin (point). This point is also
-                   the center point of the fillet
-          [3]    The fillet plane's X axis (vector).
-          [4]    The fillet plane's Y axis (vector).
-          [5]    The fillet plane's Z axis (vector).
+        if successful. The list elements are as follows:
+            [0]    A point on the first curve at which to cut (point).
+            [1]    A point on the second curve at which to cut (point).
+            [2]    The fillet plane's origin (point). This point is also
+                    the center point of the fillet
+            [3]    The fillet plane's X axis (vector).
+            [4]    The fillet plane's Y axis (vector).
+            [5]    The fillet plane's Z axis (vector).
       
       guid: If return_points is False, then the identifier of the fillet curve
             if successful.
@@ -2173,39 +2173,39 @@ def CurveSurfaceIntersection(curve_id, surface_id, tolerance=-1, angle_tolerance
           surface. If omitted, the document's current angle tolerance is used.
     Returns:
       list(list(point, point, point, point, number, number, number, number, number, number), ...): of intersection information if successful.
-      The list will contain one or more of the following elements:
-        Element Type     Description
-        [n][0]  Number   The intersection event type, either Point(1) or Overlap(2).
-        [n][1]  Point3d  If the event type is Point(1), then the intersection point
-                         on the first curve. If the event type is Overlap(2), then
-                         intersection start point on the first curve.
-        [n][2]  Point3d  If the event type is Point(1), then the intersection point
-                         on the first curve. If the event type is Overlap(2), then
-                         intersection end point on the first curve.
-        [n][3]  Point3d  If the event type is Point(1), then the intersection point
-                         on the second curve. If the event type is Overlap(2), then
-                         intersection start point on the surface.
-        [n][4]  Point3d  If the event type is Point(1), then the intersection point
-                         on the second curve. If the event type is Overlap(2), then
-                         intersection end point on the surface.
-        [n][5]  Number   If the event type is Point(1), then the first curve parameter.
-                         If the event type is Overlap(2), then the start value of the
-                         first curve parameter range.
-        [n][6]  Number   If the event type is Point(1), then the first curve parameter.
-                         If the event type is Overlap(2), then the end value of the
-                         curve parameter range.
-        [n][7]  Number   If the event type is Point(1), then the U surface parameter.
-                         If the event type is Overlap(2), then the U surface parameter
-                         for curve at (n, 5).
-        [n][8]  Number   If the event type is Point(1), then the V surface parameter.
-                         If the event type is Overlap(2), then the V surface parameter
-                         for curve at (n, 5).
-        [n][9]  Number   If the event type is Point(1), then the U surface parameter.
-                         If the event type is Overlap(2), then the U surface parameter
-                         for curve at (n, 6).
-        [n][10] Number   If the event type is Point(1), then the V surface parameter.
-                         If the event type is Overlap(2), then the V surface parameter
-                         for curve at (n, 6).
+        The list will contain one or more of the following elements:
+          Element Type     Description
+          [n][0]  Number   The intersection event type, either Point(1) or Overlap(2).
+          [n][1]  Point3d  If the event type is Point(1), then the intersection point
+                          on the first curve. If the event type is Overlap(2), then
+                          intersection start point on the first curve.
+          [n][2]  Point3d  If the event type is Point(1), then the intersection point
+                          on the first curve. If the event type is Overlap(2), then
+                          intersection end point on the first curve.
+          [n][3]  Point3d  If the event type is Point(1), then the intersection point
+                          on the second curve. If the event type is Overlap(2), then
+                          intersection start point on the surface.
+          [n][4]  Point3d  If the event type is Point(1), then the intersection point
+                          on the second curve. If the event type is Overlap(2), then
+                          intersection end point on the surface.
+          [n][5]  Number   If the event type is Point(1), then the first curve parameter.
+                          If the event type is Overlap(2), then the start value of the
+                          first curve parameter range.
+          [n][6]  Number   If the event type is Point(1), then the first curve parameter.
+                          If the event type is Overlap(2), then the end value of the
+                          curve parameter range.
+          [n][7]  Number   If the event type is Point(1), then the U surface parameter.
+                          If the event type is Overlap(2), then the U surface parameter
+                          for curve at (n, 5).
+          [n][8]  Number   If the event type is Point(1), then the V surface parameter.
+                          If the event type is Overlap(2), then the V surface parameter
+                          for curve at (n, 5).
+          [n][9]  Number   If the event type is Point(1), then the U surface parameter.
+                          If the event type is Overlap(2), then the U surface parameter
+                          for curve at (n, 6).
+          [n][10] Number   If the event type is Point(1), then the V surface parameter.
+                          If the event type is Overlap(2), then the V surface parameter
+                          for curve at (n, 6).
     Example:
       import rhinoscriptsyntax as rs
       def csx():
@@ -2867,7 +2867,7 @@ def IsCurveClosable(curve_id, tolerance=None):
     approximated by chord defined by 6 points
     Parameters:
       curve_id (guid): identifier of the curve object
-      tolerance[opt] = maximum allowable distance between start point and end
+      tolerance (number,optional) = maximum allowable distance between start point and end
         point. If omitted, the document's current absolute tolerance is used
     Returns:
       bool: True or False
@@ -2943,7 +2943,7 @@ def IsCurveInPlane(object_id, plane=None):
 def IsCurveLinear(object_id, segment_index=-1):
     """Verifies an object is a linear curve
     Parameters:
-      curve_id (guid):identifier of the curve object
+      object_id (guid):identifier of the curve object
       segment_index (number): the curve segment index if `curve_id` identifies a polycurve
     Returns:
       bool: True or False indicating success or failure
@@ -3053,7 +3053,7 @@ def IsCurveRational(curve_id, segment_index=-1):
 def IsEllipse(object_id, segment_index=-1):
     """Verifies an object is an elliptical-shaped curve
     Parameters:
-      curve_id (guid): identifier of the curve object
+      object_id (guid): identifier of the curve object
       segment_index (number, optional): the curve segment index if `curve_id` identifies a polycurve
     Returns:
       bool: True or False indicating success or failure
@@ -3075,7 +3075,7 @@ def IsEllipse(object_id, segment_index=-1):
 def IsLine(object_id, segment_index=-1):
     """Verifies an object is a line curve
     Parameters:
-      curve_id (guid): identifier of the curve object
+      object_id (guid): identifier of the curve object
       segment_index (number, optional): the curve segment index if `curve_id` identifies a polycurve
     Returns:
       bool: True or False indicating success or failure
@@ -3099,7 +3099,7 @@ def IsLine(object_id, segment_index=-1):
 def IsPointOnCurve(object_id, point, segment_index=-1):
     """Verifies that a point is on a curve
     Parameters:
-      curve_id (guid): identifier of the curve object
+      object_id (guid): identifier of the curve object
       point (point): the test point
       segment_index (number, optional): the curve segment index if `curve_id` identifies a polycurve
     Returns:
@@ -3126,7 +3126,7 @@ def IsPointOnCurve(object_id, point, segment_index=-1):
 def IsPolyCurve(object_id, segment_index=-1):
     """Verifies an object is a PolyCurve curve
     Parameters:
-      curve_id (guid): identifier of the curve object
+      object_id (guid): identifier of the curve object
       segment_index (number, optional) the curve segment index if `curve_id` identifies a polycurve
     Returns:
       bool: True or False
@@ -3147,7 +3147,7 @@ def IsPolyCurve(object_id, segment_index=-1):
 def IsPolyline( object_id, segment_index=-1 ):
     """Verifies an object is a Polyline curve object
     Parameters:
-      curve_id (guid): identifier of the curve object
+      object_id (guid): identifier of the curve object
       segment_index (number, optional): the curve segment index if `curve_id` identifies a polycurve
     Returns:
       bool: True or False
@@ -3770,7 +3770,7 @@ def SplitCurve(curve_id, parameter, delete_input=True):
     be in the interior of the curve's domain
     Parameters:
       curve_id (guid): the curve to split
-      parameter ({number, ...]) one or more parameters to split the curve at
+      parameter ([number, ...]) one or more parameters to split the curve at
       delete_input (bool, optional): delete the input curve
     Returns:
       list(guid, ....): list of new curves on success

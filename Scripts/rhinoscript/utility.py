@@ -248,7 +248,7 @@ def ColorHLSToRGB(hls):
 def ColorRedValue(rgb):
     """Retrieves intensity value for the red component of an RGB color
     Parameters:
-      hls (color): the HLS color value
+      rgb (color): the RGB color value
     Returns:
       color: The red color value if successful, otherwise False
     Example:
@@ -379,7 +379,7 @@ def GetSettings(filename, section=None, entry=None):
       entry (str, optional): entry whose associated string is to be returned
     Returns:
       list(str, ...): If section is not specified, a list containing all section names
-      list:(str, ...): If entry is not specified, a list containing all entry names for a given section
+      list(str, ...): If entry is not specified, a list containing all entry names for a given section
       str: If section and entry are specified, a value for entry
       None: if not successful
     Example:
@@ -417,6 +417,8 @@ def Polar(point, angle_degrees, distance, plane=None):
     """Returns 3D point that is a specified angle and distance from a 3D point
     Parameters:
       point (point): the point to transform
+      angle_degrees(number,optional):angle in degrees
+      distance(number,optional):distance from point
       plane (plane, optional): plane to base the transformation. If omitted, the world
         x-y plane is used
     Returns:
@@ -497,7 +499,7 @@ def Sleep(milliseconds):
 def SortPointList(points, tolerance=None):
     """Sorts list of points so they will be connected in a "reasonable" polyline order
     Parameters:
-      points ({point, ...])the points to sort
+      points ([point, ...])the points to sort
       tolerance (number, optional): minimum distance between points. Points that fall within this tolerance
         will be discarded. If omitted, Rhino's internal zero tolerance is used.
     Returns:
@@ -521,7 +523,7 @@ def SortPoints(points, ascending=True, order=0):
     """Sorts the components of an array of 3D points
     Parameters:
       points ([point, ...]): points to sort
-      ascending (bool, optional: ascending if omitted (True) or True, descending if False.
+      ascending (bool, optional): ascending if omitted (True) or True, descending if False.
       order (number, optional): the component sort order
         Value       Component Sort Order
         0 (default) X, Y, Z
@@ -662,7 +664,9 @@ def CreatePoint(point, y=None, z=None):
     Alternatively, you can also pass two coordinates singularly for a
     point on the XY plane, or three for a 3D point.
     Parameters:
-      point (Point3d|Vector3d|Point3f|Vector3f|str|guid|[number, number, number])
+      point (Point3d|Vector3d|Point3f|Vector3f|str|guid| [number, number, number]])
+      y (number,optional):y position
+      z (number,optional):z position
     Returns:
       point: a Rhino.Geometry.Point3d. This can be seen as an object with three indices:
         [0]  X coordinate
@@ -723,10 +727,11 @@ def CreateVector(vector, y=None, z=None):
     vector on the XY plane, or three for a 3D vector.
     Parameters:
       vector (Vector3d|Point3d|Point3f|Vector3f\str|guid|[number, number, number])
-      raise_on_error (bool, optionals): True or False
+      y (number,optional):y position
+      z (number,optional):z position
     Returns:
-      a Rhino.Geometry.Vector3d. This can be seen as an object with three indices:
-      result[0]: X component, result[1]: Y component, and result[2] Z component.
+      vector: a Rhino.Geometry.Vector3d. This can be seen as an object with three indices:
+        result[0]: X component, result[1]: Y component, and result[2] Z component.
     Example:
     See Also:
     """
@@ -817,16 +822,18 @@ def coerceplane(plane, raise_on_bad_input=False):
     if raise_on_bad_input: raise TypeError("%s can not be converted to a Plane"%plane)
 
 
-def CreatePlane(plane_or_origin, x_axis=None, y_axis=None, ignored=None):
+def CreatePlane(plane_or_origin, x_axis=None, y_axis=None):
     """Converts input into a Rhino.Geometry.Plane object if possible.
     If the provided object is already a plane, its value is copied.
     The returned data is accessible by indexing[origin, X axis, Y axis, Z axis], and that is the suggested method to interact with the type.
     The Z axis is in any case computed from the X and Y axes, so providing it is possible but not required.
     If the conversion fails, an error is raised.
     Parameters:
-      plane (plane|point|point, vector, vector|[point, vector, vector])
+      plane_or_origin (plane|point|point, vector, vector|[point, vector, vector])
+      x_axis (vector,optional):direction of X-Axis
+      y_axis (vector,optional):direction of Y-Axis
     Returns:
-      plane: A Rhino.Geometry.plane.
+      plane: A Rhino.Geometry.Plane
     Example:
     See Also:
     """
@@ -865,7 +872,7 @@ def CreateXform(xform):
     The returned data is accessible by indexing[row, column], and that is the suggested method to interact with the type.
     If the conversion fails, an error is raised.
     Parameters:
-      xform (list): the transform. This can be seen as a 4x4 matrix, given as nested lists or tuples.
+      xform (nested list): the transform. This can be seen as a 4x4 matrix, given as nested lists or tuples.
     Returns:
       transform: A Rhino.Geometry.Transform. result[0,3] gives access to the first row, last column.
     Example:
@@ -926,6 +933,9 @@ def CreateColor(color, g=None, b=None, a=None):
     for an RGBA color point.
     Parameters:
       color ([number, number, number]): list or 3 or 4 items. Also, a single int can be passed and it will be bitwise-parsed.
+      g (int,optional): green value
+      b (int,optional): blue value
+      a (int,optional): alpha value
     Returns:
       color: An object that can be indexed for red, green, blu, alpha. Item[0] is red.
     Example:
@@ -939,7 +949,7 @@ def CreateColor(color, g=None, b=None, a=None):
 def coerceline(line, raise_if_bad_input=False):
     if type(line) is Rhino.Geometry.Line: return line
     guid = coerceguid(line, False)
-    if guid: line = scriptcontext.doc.Objects.Find(guid).Geometry
+    if guid: line = scriptcontext.doc.Objects.FindId(guid).Geometry
     if isinstance(line, Rhino.Geometry.Curve) and line.IsLinear:
         return Rhino.Geometry.Line(line.PointAtStart, line.PointAtEnd)
     points = coerce3dpointlist(line, raise_if_bad_input)
@@ -960,7 +970,7 @@ def coercegeometry(id, raise_if_missing=False):
     if isinstance(id, Rhino.DocObjects.RhinoObject): return id.Geometry
     id = coerceguid(id, raise_if_missing)
     if id:
-        rhobj = scriptcontext.doc.Objects.Find(id)
+        rhobj = scriptcontext.doc.Objects.FindId(id)
         if rhobj: return rhobj.Geometry
     if raise_if_missing: raise ValueError("unable to convert %s into geometry"%id)
 
@@ -993,7 +1003,7 @@ def coercecurve(id, segment_index=-1, raise_if_missing=False):
     if isinstance(id, Rhino.Geometry.Curve): return id
     if type(id) is Rhino.DocObjects.ObjRef: return id.Curve()
     id = coerceguid(id, True)
-    crvObj = scriptcontext.doc.Objects.Find(id)
+    crvObj = scriptcontext.doc.Objects.FindId(id)
     if crvObj:
         curve = crvObj.Geometry
         if curve and segment_index>=0 and type(curve) is Rhino.Geometry.PolyCurve:
@@ -1016,7 +1026,7 @@ def coercesurface(object_id, raise_if_missing=False):
     if isinstance(object_id, Rhino.Geometry.Brep) and object_id.Faces.Count==1: return object_id.Faces[0]
     if type(object_id) is Rhino.DocObjects.ObjRef: return object_id.Face()
     object_id = coerceguid(object_id, True)
-    srfObj = scriptcontext.doc.Objects.Find(object_id)
+    srfObj = scriptcontext.doc.Objects.FindId(object_id)
     if srfObj:
         srf = srfObj.Geometry
         if isinstance(srf, Rhino.Geometry.Surface): return srf
@@ -1040,7 +1050,7 @@ def coercemesh(object_id, raise_if_missing=False):
     if isinstance(object_id, Rhino.Geometry.Mesh): return object_id
     object_id = coerceguid(object_id, raise_if_missing)
     if object_id: 
-        meshObj = scriptcontext.doc.Objects.Find(object_id)
+        meshObj = scriptcontext.doc.Objects.FindId(object_id)
         if meshObj:
             mesh = meshObj.Geometry
             if isinstance(mesh, Rhino.Geometry.Mesh): return mesh
@@ -1061,7 +1071,7 @@ def coercerhinoobject(object_id, raise_if_bad_input=False, raise_if_missing=Fals
     if isinstance(object_id, Rhino.DocObjects.RhinoObject): return object_id
     object_id = coerceguid(object_id, raise_if_bad_input)
     if object_id is None: return None
-    rc = scriptcontext.doc.Objects.Find(object_id)
+    rc = scriptcontext.doc.Objects.FindId(object_id)
     if not rc and raise_if_missing: raise ValueError("%s does not exist in ObjectTable" % object_id)
     return rc
 
@@ -1072,9 +1082,10 @@ def CreateInterval(interval, y=None):
     In case a single number is provided, it will be translated to an increasing interval that includes
     the provided input and 0. If two values are provided, they will be used instead.
     Parameters:
-      interval ([number, number]): or any item that can be accessed at index 0 and 1; an Interval
+      interval ([number, number]): or any item that can be accessed at index 0 and 1; an Interval or just the lower bound
+      y (number,optional): uper bound of interval
     Returns:
-      interval: a Rhino.Geometry.Interval. This can be seen as an object made of two items:
+      a Rhino.Geometry.Interval: This can be seen as an object made of two items:
         [0] start of interval
         [1] end of interval
     Example:

@@ -113,8 +113,7 @@ def PlaneClosestPoint(plane, point, return_point=True):
          point is returned.
     Returns:
       point: If return_point is omitted or True, then the 3-D point
-      point: If return_point is False, then an array containing the U,V parameters
-      of the point
+      point: If return_point is False, then an array containing the U,V parameters of the point
       None: if not successful, or on error.
     Example:
       import rhinoscriptsyntax as rs
@@ -141,9 +140,9 @@ def PlaneCurveIntersection(plane, curve, tolerance=None):
     Parameters:
       plane (plane): The plane to intersect.
       curve (guid): The identifier of the curve object
-      torerance (number, optional): The intersection tolerance. If omitted, the document's absolute tolerance is used.
+      tolerance (number, optional): The intersection tolerance. If omitted, the document's absolute tolerance is used.
     Returns:
-      A list of intersection information tuple if successful.  The list will contain one or more of the following tuple:
+      [(number,Point3d,Point3d,Point3d,Point3d,number,number,number,number,number)]:a list of intersection information tuple if successful.  The list will contain one or more of the following tuple:
 
         Element Type        Description
 

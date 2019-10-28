@@ -4,7 +4,17 @@ import utility as rhutil
 import math
 import System.Guid
 
-def __InstanceObjectFromId(id, raise_if_missing):
+
+
+
+def InstanceObjectFromId(id, raise_if_missing=False):
+    """Returns the Rhino Block instance object for a given Id
+    Parameters:
+      id (guid): Id of block instance
+      raise_if_missing(bool,optional): raise error if id is missing?
+    Returns:
+      Rhino.DocObjects.InstanceObject: block instance object
+    """
     rhobj = rhutil.coercerhinoobject(id, True, raise_if_missing)
     if isinstance(rhobj, Rhino.DocObjects.InstanceObject): return rhobj
     if raise_if_missing: raise ValueError("unable to find InstanceObject")
@@ -150,13 +160,14 @@ def BlockDescription(block_name, description=None):
 
 def BlockInstanceCount(block_name,where_to_look=0):
     """Counts number of instances of the block in the document.
-    Nested instances are not included in the count.
+    Nested instances are not included in the count. Attention this may include deleted blocks.
     Parameters:
       block_name (str): the name of an existing block definition
       where_to_look (number, optional):
         0 = get top level references in active document.
-        1 = get top level and nested references in active document.
-        2 = check for references from other instance definitions
+        1 = get top level and nested references in active document. 
+            If a block is nested more than once within another block it will be counted only once.
+        2 = check for references from other instance definitions, counts every instance of nested block
     Returns:
       number: the number of instances of the block in the document
     Example:
@@ -227,7 +238,7 @@ def BlockInstances(block_name,where_to_look=0):
     """Returns the identifiers of the inserted instances of a block.
     Parameters:
       block_name (str): the name of an existing block definition
-      where_to_look (number, optional):
+      where_to_look (int, optional):
         0 = get top level references in active document.
         1 = get top level and nested references in active document.
         2 = check for references from other instance definitions
@@ -446,7 +457,7 @@ def InsertBlock( block_name, insertion_point, scale=(1,1,1), angle_degrees=0, ro
     Parameters:
       block_name (str): name of an existing block definition
       insertion_point (point): insertion point for the block
-      scale ({number, number, number]): x,y,z scale factors
+      scale ([number, number, number]): x,y,z scale factors
       angle_degrees (number, optional): rotation angle in degrees
       rotation_normal (vector, optional): the axis of rotation.
     Returns:

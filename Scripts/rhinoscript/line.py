@@ -94,8 +94,8 @@ def LineIsFartherThan(line, distance, point_or_line):
 
 
 def LineLineIntersection(lineA, lineB):
-    """Calculates the intersection of two non-parallel lines. Note, the two
-    lines do not have to intersect for an intersection to be found. (see help)
+    """Calculates the intersection of two non-parallel lines. The lines are considered endless.
+    If the two lines do not actually intersect the closest point on each is returned
     Parameters:
       lineA, lineB (line): lines to intersect
     Returns:

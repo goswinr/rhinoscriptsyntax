@@ -77,7 +77,7 @@ def AddCutPlane(object_ids, start_point, end_point, normal=None):
     """Adds a planar surface through objects at a designated location. For more
     information, see the Rhino help file for the CutPlane command
     Parameters:
-      objects_ids ([guid, ...]): identifiers of objects that the cutting plane will
+      object_ids ([guid, ...]): identifiers of objects that the cutting plane will
           pass through
       start_point, end_point (line): line that defines the cutting plane
       normal (vector, optional): vector that will be contained in the returned planar
@@ -202,6 +202,9 @@ def AddNetworkSrf(curves, continuity=1, edge_tolerance=0, interior_tolerance=0, 
                  1 = position
                  2 = tangency
                  3 = curvature
+      edge_tolerance(number,optional): edge tolerance
+      interior_tolerance(number,optional): interior tolerance
+      angle_tolerance(number,optional):angle tolerance , in radians?
     Returns:
       guid: identifier of new object if successful
     Example:
@@ -224,13 +227,13 @@ def AddNurbsSurface(point_count, points, knots_u, knots_v, degree, weights=None)
     """Adds a NURBS surface object to the document
     Parameters:
       point_count ([number, number]) number of control points in the u and v direction
-      points ({point, ...]): list of 3D points
+      points ([point, ...]): list of 3D points
       knots_u ([number, ...]): knot values for the surface in the u direction.
                 Must contain point_count[0]+degree[0]-1 elements
       knots_v ([number, ...]): knot values for the surface in the v direction.
                 Must contain point_count[1]+degree[1]-1 elements
       degree ([number, number]): degree of the surface in the u and v directions.
-      weights [(number, ...]): weight values for the surface. The number of elements in
+      weights ([(number, ...]): weight values for the surface. The number of elements in
         weights must equal the number of elements in points. Values must be
         greater than zero.
     Returns:
@@ -286,7 +289,7 @@ def AddNurbsSurface(point_count, points, knots_u, knots_v, degree, weights=None)
 def AddPatch(object_ids, uv_spans_tuple_OR_surface_object_id, tolerance=None, trim=True, point_spacing=0.1, flexibility=1.0, surface_pull=1.0, fix_edges=False):
     """Fits a surface through curve, point, point cloud, and mesh objects.
     Parameters:
-      object_ids ({guid, ...]): a list of object identifiers that indicate the objects to use for the patch fitting.
+      object_ids ([guid, ...]): a list of object identifiers that indicate the objects to use for the patch fitting.
           Acceptable object types include curves, points, point clouds, and meshes.
       uv_spans_tuple_OR_surface_object_id ([number, number]|guid):  the U and V direction span counts for the automatically generated surface OR
           The identifier of the starting surface.  It is best if you create a starting surface that is similar in shape 
@@ -380,7 +383,7 @@ def AddPipe(curve_id, parameters, radii, blend_type=0, cap=0, fit=False):
 def AddPlanarSrf(object_ids):
     """Creates one or more surfaces from planar curves
     Parameters:
-      object_ids ({guid, ...]): curves to use for creating planar surfaces
+      object_ids ([guid, ...]): curves to use for creating planar surfaces
     Returns:
       list(guid, ...): identifiers of surfaces created on success
       None: on error
@@ -444,7 +447,7 @@ def AddLoftSrf(object_ids, start=None, end=None, loft_type=0, simplify_method=0,
     - seams of closed curves are not adjusted. Use CurveSeam to adjust the seam
       of closed curves
     Parameters:
-      object_ids ({guid, guid, ...]): ordered list of the curves to loft through
+      object_ids ([guid, guid, ...]): ordered list of the curves to loft through
       start (point, optional): starting point of the loft
       end (point, optional): ending point of the loft
       loft_type (number, optional): type of loft. Possible options are:
@@ -677,7 +680,7 @@ def AddSrfPt(points):
 def AddSrfPtGrid(count, points, degree=(3,3), closed=(False,False)):
     """Creates a surface from a grid of points
     Parameters:
-      count ([number, number}): tuple of two numbers defining number of points in the u,v directions
+      count ([number, number]): tuple of two numbers defining number of points in the u,v directions
       points ([point, ...]): list of 3D points
       degree ([number, number], optional): two numbers defining degree of the surface in the u,v directions
       closed ([bool, bool], optional): two booleans defining if the surface is closed in the u,v directions
@@ -801,7 +804,7 @@ def AddTorus(base, major_radius, minor_radius, direction=None):
     Parameters:
       base (point): 3D origin point of the torus or the base plane of the torus
       major_radius, minor_radius (number): the two radii of the torus
-      directions (point):  A point that defines the direction of the torus when base is a point.
+      direction (point):  A point that defines the direction of the torus when base is a point.
         If omitted, a torus that is parallel to the world XY plane is created
     Returns:
       guid: The identifier of the new object if successful.
@@ -959,18 +962,18 @@ def BrepClosestPoint(object_id, point):
       point (point): The test, or sampling point.
     Returns:
       tuple(point, [number, number], [number, number], vector): of closest point information if successful. The list will
-      contain the following information:
-      Element     Type             Description
-         0        Point3d          The 3-D point at the parameter value of the 
-                                   closest point.
-         1        (U, V)           Parameter values of closest point. Note, V 
-                                   is 0 if the component index type is brep_edge
-                                   or brep_vertex. 
-         2        (type, index)    The type and index of the brep component that
-                                   contains the closest point. Possible types are
-                                   brep_face, brep_edge or brep_vertex.
-         3        Vector3d         The normal to the brep_face, or the tangent
-                                   to the brep_edge.  
+        contain the following information:
+        Element     Type             Description
+          0        Point3d          The 3-D point at the parameter value of the 
+                                    closest point.
+          1        (U, V)           Parameter values of closest point. Note, V 
+                                    is 0 if the component index type is brep_edge
+                                    or brep_vertex. 
+          2        (type, index)    The type and index of the brep component that
+                                    contains the closest point. Possible types are
+                                    brep_face, brep_edge or brep_vertex.
+          3        Vector3d         The normal to the brep_face, or the tangent
+                                    to the brep_edge.  
       None: if not successful, or on error.
     Example:
       import rhinoscriptsyntax as rs
@@ -1031,8 +1034,7 @@ def DuplicateEdgeCurves(object_id, select=False):
     command.
     Parameters:
       object_id (guid): The identifier of the surface or polysurface object.
-      select (bool, optional):  Select the duplicated edge curves. The default is not
-      to select (False).
+      select (bool, optional):  Select the duplicated edge curves. The default is not to select (False).
     Returns:
       list(guid, ..): identifying the newly created curve objects if successful.
       None: if not successful, or on error.
@@ -1096,7 +1098,7 @@ def EvaluateSurface(surface_id, u, v):
     """Evaluates a surface at a U,V parameter
     Parameters:
       surface_id (guid): the object's identifier.
-      u, v ({number, number]): u, v parameters to evaluate.
+      u, v ([number, number]): u, v parameters to evaluate.
     Returns:
       point: a 3-D point if successful
       None: if not successful
@@ -1124,7 +1126,7 @@ def ExtendSurface(surface_id, parameter, length, smooth=True):
     """Lengthens an untrimmed surface object
     Parameters:
       surface_id (guid): identifier of a surface
-      parameter ([number, number}): tuple of two values definfing the U,V parameter to evaluate.
+      parameter ([number, number]): tuple of two values definfing the U,V parameter to evaluate.
         The surface edge closest to the U,V parameter will be the edge that is
         extended
       length (number): amount to extend to surface
@@ -1156,7 +1158,7 @@ def ExplodePolysurfaces(object_ids, delete_input=False):
     will be exploded into separate surfaces
     Parameters:
       object_ids ([guid, ...]): identifiers of polysurfaces to explode
-      delete_input 9bool, optional): delete input objects after exploding
+      delete_input (bool, optional): delete input objects after exploding
     Returns:
       list(guid, ...): of identifiers of exploded pieces on success
     Example:
@@ -1660,7 +1662,7 @@ def IsPointInSurface(object_id, point, strictly_in=False, tolerance=None):
     object_id = rhutil.coerceguid(object_id, True)
     point = rhutil.coerce3dpoint(point, True)
     if object_id==None or point==None: return scriptcontext.errorhandler()
-    obj = scriptcontext.doc.Objects.Find(object_id)
+    obj = scriptcontext.doc.Objects.FindId(object_id)
     if tolerance is None: tolerance = Rhino.RhinoMath.SqrtEpsilon
     brep = None
     if type(obj)==Rhino.DocObjects.ExtrusionObject:
@@ -2339,7 +2341,7 @@ def ShrinkTrimmedSurface(object_id, create_copy=False):
     rc = None
     object_id = rhutil.coerceguid(object_id)
     if create_copy:
-        oldobj = scriptcontext.doc.Objects.Find(object_id)
+        oldobj = scriptcontext.doc.Objects.FindId(object_id)
         attr = oldobj.Attributes
         rc = scriptcontext.doc.Objects.AddBrep(brep, attr)
     else:
@@ -2361,8 +2363,9 @@ def __GetMassProperties(object_id, area):
 def SplitBrep(brep_id, cutter_id, delete_input=False):
     """Splits a brep
     Parameters:
-      brep (guid): identifier of the brep to split
-      cutter (guid): identifier of the brep to split with
+      brep_id (guid): identifier of the brep to split
+      cutter_id (guid): identifier of the brep to split with
+      delete_input(bool,optional): delete input breps
     Returns:
       list(guid, ...): identifiers of split pieces on success
       None: on error
@@ -2675,7 +2678,7 @@ def SurfaceEditPoints(surface_id, return_parameters=False, return_all=True):
       return_parameters (bool, optional): If False, edit points are returned as a list of
         3D points. If True, edit points are returned as a list of U,V surface
         parameters
-      return_all (bool, options): If True, all surface edit points are returned. If False,
+      return_all (bool, optional): If True, all surface edit points are returned. If False,
         the function will return surface edit points based on whether or not the
         surface is closed or periodic
     Returns:
@@ -3062,7 +3065,7 @@ def SurfaceVolume(object_id):
     Parameters:
       object_id (guid): the surface's identifier
     Returns:
-      list(number, tuple(X, Y, Z): volume data returned (Volume, Error bound) on success
+      list[number, tuple(X, Y, Z)]: volume data returned (Volume, Error bound) on success
       None: on error
     Example:
       import rhinoscriptsyntax as rs
@@ -3085,7 +3088,7 @@ def SurfaceVolumeCentroid(object_id):
     Parameters:
       object_id (guid): the surface's identifier
     Returns:
-      list(point, tuple(X, Y, Z): volume data returned (Volume Centriod, Error bound) on success
+      list[point, tuple(X, Y, Z)]: volume data returned (Volume Centriod, Error bound) on success
       None: on error
     Example:
       import rhinoscriptsyntax as rs
@@ -3265,8 +3268,10 @@ def UnrollSurface(surface_id, explode=False, following_geometry=None, absolute_t
     Parameters:
       surface_id (guid): the surface's identifier
       explode (bool, optional): If True, the resulting surfaces ar not joined
-      following_geometry ({guid, ...]): List of curves, dots, and points which
+      following_geometry ([guid, ...], optional): List of curves, dots, and points which
         should be unrolled with the surface
+      absolute_tolerance(number,optional): absolute tolerance
+      relative_tolerance(number,optional): relative tolerance
     Returns:
       list(guid, ...): of unrolled surface ids
       tuple((guid, ...),(guid, ...)): if following_geometry is not None, a tuple

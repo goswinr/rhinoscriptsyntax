@@ -114,7 +114,7 @@ def __neighborgrip(i, object_id, index, direction, enable):
     if next_grip and enable:
         next_grip.Select(True)
         scriptcontext.doc.Views.Redraw()
-    return next_grip
+    return next_grip.Index
 
 
 def NextObjectGrip(object_id, index, direction=0, enable=True):
@@ -327,7 +327,7 @@ def SelectedObjectGrips(object_id):
     Parameters:
       object_id (guid): identifier of the object
     Returns:
-      list(number): list of indices on success
+      list(int,...): list of indices on success
       None: on failure or if no grips are selected
     Example:
       import rhinoscriptsyntax as rs

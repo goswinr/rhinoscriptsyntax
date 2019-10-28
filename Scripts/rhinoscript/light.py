@@ -16,7 +16,7 @@ def AddDirectionalLight(start_point, end_point):
       start_point(point): starting point of the light
       end_point (point): ending point and direction of the light
     Returns:
-      (guid): identifier of the new object if successful
+      guid: identifier of the new object if successful
     Example:
       import rhinoscriptsyntax as rs
       end = rs.GetPoint("End of light vector direction")

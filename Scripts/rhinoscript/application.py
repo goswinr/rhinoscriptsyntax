@@ -39,7 +39,7 @@ def AddSearchPath(folder, index=-1):
                              If omitted, path will be appended to the end of the
                              search path list.
     Returns:
-      number: The index where the item was inserted if success.
+      int: The index where the item was inserted if success.
            -1 on failure.
     Example:
       import rhinoscriptsyntax as rs
@@ -100,7 +100,7 @@ def AliasMacro(alias, macro=None):
 def AliasNames():
     """Returns a list of command alias names.
     Returns:
-      str: a list of command alias names.
+      list(str, ...): a list of command alias names.
     Example:
       import rhinoscriptsyntax as rs
       aliases = rs.AliasNames()
@@ -135,8 +135,8 @@ def AppearanceColor(item, color=None):
              13 = Text hover
       color ([r255,g255,b255], optional): The new color value in (r255,g255,b255). If omitted, the current item color is returned.
     Returns:
-      tuple (r255,g255,b255): if color is not specified, the current item color.
-      tuple (r255,g255,b255): if color is specified, the previous item color.
+      color (r255,g255,b255): if color is not specified, the current item color.
+      color (r255,g255,b255): if color is specified, the previous item color.
     Example:
       import rhinoscriptsyntax as rs
       oldColor = rs.AppearanceColor(0)
@@ -275,12 +275,7 @@ def Command(commandString, echo=True):
     """Runs a Rhino command script. All Rhino commands can be used in command
     scripts. The command can be a built-in Rhino command or one provided by a
     3rd party plug-in.
-    Parameters:
-      commandString (str): A Rhino command including any arguments
-      echo (bool, optional): The command echo mode True will display the commands on the commandline. If omitted, command prompts are echoed (True)
-    Returns:
-      bool: True or False indicating success or failure
-
+    
     Write command scripts just as you would type the command sequence at the
     command line. A space or a new line acts like pressing <Enter> at the
     command line. For more information, see "Scripting" in Rhino help.
@@ -303,6 +298,14 @@ def Command(commandString, echo=True):
         rs.Command("_Line _Pause _Pause")
     After the command script has run, you can obtain the identifiers of most
     recently created or changed object by calling LastCreatedObjects.
+    
+    Parameters:
+      commandString (str): A Rhino command including any arguments
+      echo (bool, optional): The command echo mode True will display the commands on the commandline. If omitted, command prompts are echoed (True)
+    Returns:
+      bool: True or False indicating success or failure
+
+    
     Example:
       import rhinoscriptsyntax as rs
       rs.Command("_Line 0,0,0 2,2,2")
@@ -341,6 +344,7 @@ def DefaultRenderer(renderer=None):
     Parameters:
       renderer (str, optional): The name of the renderer to set as default renderer.  If omitted the Guid of the current renderer is returned.
     Returns:
+      guid: Unique identifier of default renderer
       guid: Unique identifier of default renderer
     Example:
       import rhinoscriptsyntax as rs
@@ -896,21 +900,21 @@ def OsnapMode(mode=None):
     """Returns or sets the object snap mode. Object snaps are tools for
     specifying points on existing objects
     Parameters:
-      mode (number, optional): The object snap mode or modes to set. Object snap modes
-                     can be added together to set multiple modes
-                     0          None
-                     2          Near
-                     8          Focus
-                     32         Center
-                     64         Vertex
-                     128        Knot
-                     512        Quadrant
-                     2048       Midpoint
-                     8192       Intersection
-                     131072     End
-                     524288     Perpendicular
-                     2097152    Tangent
-                     134217728  Point
+      mode (number, optional): The object snap mode or modes to set. 
+        0          None
+        2          Near
+        8          Focus
+        32         Center
+        64         Vertex
+        128        Knot
+        512        Quadrant
+        2048       Midpoint
+        8192       Intersection
+        131072     End
+        524288     Perpendicular
+        2097152    Tangent
+        134217728  Point
+        Object snap modes can be added together to set multiple modes
     Returns:
       number: if mode is not specified, then the current object snap mode(s)
       number: if mode is specified, then the previous object snap mode(s)

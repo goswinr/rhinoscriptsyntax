@@ -712,7 +712,7 @@ def RenderSettings(settings=None):
 
 
 def UnitAbsoluteTolerance(tolerance=None, in_model_units=True):
-    """Resturns or sets the document's absolute tolerance. Absolute tolerance
+    """Returns or sets the document's absolute tolerance. Absolute tolerance
     is measured in drawing units. See Rhino's document properties command
     (Units and Page Units Window) for details
     Parameters:
@@ -785,7 +785,8 @@ def UnitDistanceDisplayPrecision(precision=None, model_units=True):
                                     Use UnitDistanceDisplayMode to get the current distance display mode.
       model_units (bool, optional): Return or modify the document's model units (True) or the document's page units (False). The default is True.
     Returns:
-     number: If precision is not specified, the current distance display precision if successful. If precision is specified, the previous distance display precision if successful. If not successful, or on error.
+     number: If precision is not specified, the current distance display precision if successful. 
+     number: If precision is specified, the previous distance display precision if successful. 
     Example:
       import rhinoscriptsyntax as rs
       precision = 3
@@ -923,7 +924,7 @@ def UnitSystem(unit_system=None, scale=False, in_model_units=True):
         25 - Parsecs (3.08567758e+16)
       scale (bool, optional): Scale existing geometry based on the new unit system.
           If not specified, any existing geometry is not scaled (False)
-      in_model_units (number, optional): Return or modify the document's model units (True)
+      in_model_units (bool, optional): Return or modify the document's model units (True)
           or the document's page units (False). The default is True.
     Returns:
       number: if unit_system is not specified, the current unit system

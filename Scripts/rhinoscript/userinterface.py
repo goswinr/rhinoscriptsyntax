@@ -240,7 +240,7 @@ def GetBox(mode=0, base_point=None, prompt1=None, prompt2=None, prompt3=None):
     if rc==Rhino.Commands.Result.Success: return tuple(box.GetCorners())
 
 
-def GetColor(color=[0,0,0]):
+def GetColor(color=None):
     """Display the Rhino color picker dialog allowing the user to select an RGB color
     Parameters:
       color (color, optional): default RGB value. If omitted, the default color is black
@@ -265,11 +265,11 @@ def GetColor(color=[0,0,0]):
 def GetCursorPos():
     """Retrieves the cursor's position
     Returns:
-      tuple(point, point, guid, point) containing the following information
-        [0]  cursor position in world coordinates
-        [1]  cursor position in screen coordinates
-        [2]  id of the active viewport
-        [3]  cursor position in client coordinates
+      tuple(point, point, guid, point): containing the following information
+        0  cursor position in world coordinates
+        1  cursor position in screen coordinates
+        2  id of the active viewport
+        3  cursor position in client coordinates
     Example:
       import rhinoscriptsyntax as  rs
       world, screen, view, client  = rs.GetCursorPos()
@@ -287,7 +287,7 @@ def GetCursorPos():
     return world_pt, screen_pt, viewport.Id, client_pt
 
 
-def GetDistance(first_pt=None, distance=None, first_pt_msg='First distance point', second_pt_msg='Second distance point'):
+def GetDistance(first_pt=None, distance=None, first_pt_msg="First distance point", second_pt_msg="Second distance point"):
     """Pauses for user input of a distance.
     Parameters:
       first_pt (point, optional): First distance point
@@ -963,7 +963,7 @@ def ListBox(items, message=None, title=None, default=None):
       title (str, optional): a dialog box title
       default (str, optional): selected item in the list
     Returns:
-      str: he selected item if successful
+      str: the selected item if successful
       None: if not successful or on error
     Example:
       import rhinoscriptsyntax as rs

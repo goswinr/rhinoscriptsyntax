@@ -84,7 +84,7 @@ def AddNamedCPlane(cplane_name, view=None):
       view (guid|str): Title or identifier of the view from which to save
                the construction plane. If omitted, the current active view is used.
     Returns:
-      atr: name of the newly created construction plane if successful
+      str: name of the newly created construction plane if successful
       None: on error
     Example:
       import rhinoscriptsyntax as rs
@@ -266,7 +266,7 @@ def DetailLock(detail_id, lock=None):
       IsLayout
     """
     detail_id = rhutil.coerceguid(detail_id, True)
-    detail = scriptcontext.doc.Objects.Find(detail_id)
+    detail = scriptcontext.doc.Objects.FindId(detail_id)
     if not detail: return scriptcontext.errorhandler()
     rc = detail.DetailGeometry.IsProjectionLocked
     if lock is not None and lock!=rc:
@@ -294,7 +294,7 @@ def DetailScale(detail_id, model_length=None, page_length=None):
       IsLayout
     """
     detail_id = rhutil.coerceguid(detail_id, True)
-    detail = scriptcontext.doc.Objects.Find(detail_id)
+    detail = scriptcontext.doc.Objects.FindId(detail_id)
     if detail is None: return scriptcontext.errorhandler()
     rc = detail.DetailGeometry.PageToModelRatio
     if model_length or page_length:
@@ -314,8 +314,7 @@ def IsDetail(layout, detail):
       layout (str|guid): title or identifier of an existing page layout
       detail (str|guid): title or identifier of an existing detail view
     Returns:
-      bool: True if detail is a detail view
-      bool: False if detail is not a detail view
+      bool: True if detail is a detail view, False if detail is not a detail view
       None: on error
     Example:
       import rhinoscriptsyntax as rs
@@ -359,8 +358,7 @@ def IsLayout(layout):
     Parameters:
       layout (guid|str): title or identifier of an existing page layout view
     Returns:
-      bool: True if layout is a page layout view
-      bool: False is layout is a standard, model view
+      bool: True if layout is a page layout view, False is layout is a standard model view
       None: on error
     Example:
       import rhinoscriptsyntax as rs
@@ -1166,7 +1164,7 @@ def ViewDisplayModeName(mode_id):
 def ViewDisplayModes(return_names=True):
     """Return list of display modes
     Parameters:
-      return_name (bool, otpional): If True, return mode names. If False, return ids
+      return_names (bool, optional): If True, return mode names. If False, return ids
     Returns:
       list(str|guid, ...): strings identifying the display mode names or identifiers if successful
     Example:

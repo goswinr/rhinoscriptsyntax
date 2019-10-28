@@ -178,8 +178,7 @@ def IsLayoutObject(object_id):
     Parameters:
       object_id (guid): id of an object to test
     Returns:
-      bool: True if the object is in page layout space
-      bool: False if the object is in model space
+      bool: True if the object is in page layout space, False if the object is in model space
     Example:
       import rhinoscriptsyntax as rs
       id = rs.GetObject("Select object")
@@ -201,8 +200,7 @@ def IsObject(object_id):
     Parameters:
       object_id (guid): an object to test
     Returns:
-      bool: True if the object exists
-      bool: False if the object does not exist
+      bool: True if the object exists, False if the object does not exist
     Example:
       import rhinoscriptsyntax as rs
       #Do something here...
@@ -229,8 +227,7 @@ def IsObjectHidden(object_id):
     Parameters:
       object_id (guid): The identifier of an object to test
     Returns:
-      bool: True if the object is hidden
-      bool: False if the object is not hidden
+      bool: True if the object is hidden, False if the object is not hidden
     Example:
       import rhinoscriptsyntax as rs
       # Do something here...
@@ -260,8 +257,7 @@ def IsObjectInBox(object_id, box, test_mode=True):
       test_mode (bool, optional): If True, the object's bounding box must be contained by box
         If False, the object's bounding box must be contained by or intersect box
     Returns:
-      bool: True if object is inside box
-      bool: False is object is not inside box
+      bool: True if object is inside box, False is object is not inside box
     Example:
       import rhinoscriptsyntax as rs
       box = rs.GetBox()
@@ -292,9 +288,9 @@ def IsObjectInGroup(object_id, group_name=None):
         verifies that the object is a member of any group
     Returns:
       bool: True if the object is a member of the specified group. If a group_name
-        was not specified, the object is a member of some group.
-      bool: False if the object is not a member of the specified group. If a
-        group_name was not specified, the object is not a member of any group
+        was not specified, the object is a member of some group. 
+        False if the object  is not a member of the specified group. 
+        If a group_name was not specified, the object is not a member of any group
     Example:
       import rhinoscriptsyntax as rs
       id = rs.GetObject("Select object")
@@ -334,8 +330,7 @@ def IsObjectLocked(object_id):
     Parameters:
       object_id (guid): The identifier of an object to be tested
     Returns:
-      bool: True if the object is locked
-      bool: False if the object is not locked
+      bool: True if the object is locked, False if the object is not locked
     Example:
       import rhinoscriptsyntax as rs
       # Do something here...
@@ -363,8 +358,7 @@ def IsObjectNormal(object_id):
     Parameters:
       object_id (guid): The identifier of an object to be tested
     Returns:
-      bool: True if the object is normal
-      bool: False if the object is not normal
+      bool: True if the object is normal, False if the object is not normal
     Example:
       import rhinoscriptsyntax as rs
       #Do something here...
@@ -392,8 +386,7 @@ def IsObjectReference(object_id):
     Parameters:
       object_id (guid): The identifier of an object to test
     Returns:
-      bool: True if the object is a reference object
-      bool: False if the object is not a reference object
+      bool: True if the object is a reference object, False if the object is not a reference object
     Example:
       import rhinoscriptsyntax as rs
       id = rs.GetObject("Select object")
@@ -445,10 +438,11 @@ def IsObjectSelected(object_id):
     Parameters:
       object_id (guid): The identifier of an object to test
     Returns:
-      int: 0, the object is not selected
-      int: 1, the object is selected
-      int: 2, the object is entirely persistently selected
-      int: 3, one or more proper sub-objects are selected
+      int: 
+        0, the object is not selected
+        1, the object is selected
+        2, the object is entirely persistently selected
+        3, one or more proper sub-objects are selected
     Example:
       import rhinocsriptsyntax as rs
       object = rs.GetObject()
@@ -475,8 +469,7 @@ def IsObjectSolid(object_id):
     Parameters:
       object_id (guid): The identifier of an object to test
     Returns:
-      bool: True if the object is solid, or a mesh is closed.
-      bool: False otherwise.
+      bool: True if the object is solid, or a mesh is closed., False otherwise.
     Example:
       import rhinoscriptsyntax as rs
       id = rs.GetObject("Select object")
@@ -531,7 +524,7 @@ def IsVisibleInView(object_id, view=None):
     """Verifies an object is visible in a view
     Parameters:
       object_id (guid): the identifier of an object to test
-      view (str, optional): he title of the view.  If omitted, the current active view is used.
+      view (str, optional): the title of the view.  If omitted, the current active view is used.
     Returns:
       bool: True if the object is visible in the specified view, otherwise False.  None on error
     Example:
@@ -742,7 +735,7 @@ def MoveObjects(object_ids, translation):
 
 
 def ObjectColor(object_ids, color=None):
-    """Returns of modifies the color of an object. Object colors are represented
+    """Returns or modifies the color of an object. Object colors are represented
     as RGB colors. An RGB color specifies the relative intensity of red, green,
     and blue to cause a specific color to be displayed
     Parameters:
@@ -797,7 +790,7 @@ def ObjectColor(object_ids, color=None):
 
 
 def ObjectColorSource(object_ids, source=None):
-    """Returns of modifies the color source of an object.
+    """Returns or modifies the color source of an object.
     Parameters:
       object_ids ([guid, ...]): single identifier of list of identifiers
       source (number, optional) = new color source
@@ -806,9 +799,9 @@ def ObjectColorSource(object_ids, source=None):
           2 = color from material
           3 = color from parent
     Returns:
-      if color source is not specified, the current color source
-      is color source is specified, the previous color source
-      if color_ids is a list, then the number of objects modifief
+      int: if color source is not specified, the current color source
+      int: is color source is specified, the previous color source
+      int: if color_ids is a list, then the number of objects modifief
     Example:
       import rhinoscriptsyntax as rs
       objs = rs.GetObjects("Select objects to reset color source")
@@ -841,9 +834,9 @@ def ObjectColorSource(object_ids, source=None):
 def ObjectDescription(object_id):
     """Returns a short text description of an object
     Parameters:
-      object_id = identifier of an object
+      object_id (guid): identifier of an object
     Returns:
-      A short text description of the object if successful.
+      str: A short text description of the object if successful.
     Example:
       import rhinoscriptsyntax as rs
       obj = rs.GetObject("Select object")
@@ -928,7 +921,7 @@ def ObjectLayout(object_id, layout=None, return_name=True):
         layout space, or from one page layout to another, then specify the
         title or identifier of an existing page layout view. To move an object
         from page layout space to model space, just specify None
-      return_name[opt] = If True, the name, or title, of the page layout view
+      return_name(bool,optional): If True, the name, or title, of the page layout view
         is returned. If False, the identifier of the page layout view is returned
     Returns:
       str: if layout is not specified, the object's current page layout view
@@ -967,9 +960,9 @@ def ObjectLayout(object_id, layout=None, return_name=True):
 
 
 def ObjectLinetype(object_ids, linetype=None):
-    """Returns of modifies the linetype of an object
+    """Returns or modifies the linetype of an object
     Parameters:
-      object_ids ({guid, ...]): identifiers of object(s)
+      object_ids ([guid, ...]): identifiers of object(s)
       linetype (str, optional): name of an existing linetype. If omitted, the current
         linetype is returned. If object_ids is a list of identifiers, this parameter
         is required
@@ -1008,7 +1001,7 @@ def ObjectLinetype(object_ids, linetype=None):
 
 
 def ObjectLinetypeSource(object_ids, source=None):
-    """Returns of modifies the linetype source of an object
+    """Returns or modifies the linetype source of an object
     Parameters:
       object_ids ([guid, ...]): identifiers of object(s)
       source (number, optional): new linetype source. If omitted, the current source is returned.
@@ -1054,12 +1047,12 @@ def ObjectMaterialIndex(object_id, material_index=None):
     indices into this array.
     Parameters:
       object_id (guid): identifier of an object
-      index (number, optional): the new material index
+      material_index (number, optional): the new material index
     Returns:
       number: If the return value of ObjectMaterialSource is "material by object", then
           the return value of this function is the index of the object's rendering
           material. A material index of -1 indicates no material has been assigned,
-          and that Rhino's internal default material has been assigned to the object.
+          and that Rhino's internal default material has been assigned to the object.          
       None: on failure
     Example:
       import rhinoscriptsyntax as rs
@@ -1098,7 +1091,7 @@ def ObjectMaterialSource(object_ids, source=None):
     Returns:
       number: If source is not specified, the current rendering material source
       number: If source is specified, the previous rendering material source
-      number: If object_ids refers to multiple objects, the number of objects modified
+      number: If object_ids is a list, the number of objects modified
     Example:
       import rhinoscriptsyntax as rs
       objects = rs.GetObjects("Select objects to reset rendering material source")
@@ -1559,6 +1552,7 @@ def SelectObject(object_id, redraw=True):
     """Selects a single object
     Parameters:
       object_id (guid): the identifier of the object to select
+      redraw (bool, optional): redraw view too
     Returns:
       bool: True on success
     Example:
@@ -1614,7 +1608,9 @@ def ShearObject(object_id, origin, reference_point, angle_degrees, copy=False):
     """Perform a shear transformation on a single object
     Parameters:
       object_id (guid, ...): The identifier of an object
-      origin, reference_point (point) origin/reference point of the shear transformation
+      origin (point): origin point of the shear transformation
+      reference_point (point): reference point of the shear transformation
+      angle_degrees (number): the shear angle in degrees
       copy (bool, optional): copy the objects
     Returns:
       guid: Identifier of the sheared object if successful
@@ -1638,7 +1634,9 @@ def ShearObjects(object_ids, origin, reference_point, angle_degrees, copy=False)
     """Shears one or more objects
     Parameters:
       object_ids ([guid, ...]): The identifiers objects to shear
-      origin, reference_point (point): origin/reference point of the shear transformation
+      origin (point): origin point of the shear transformation
+      reference_point (point): reference point of the shear transformation
+      angle_degrees (number): the shear angle in degrees
       copy (bool, optional): copy the objects
     Returns:
       list(guid, ...]): identifiers of the sheared objects if successful
@@ -1732,11 +1730,11 @@ def TransformObject(object_id, matrix, copy=False):
     """Moves, scales, or rotates an object given a 4x4 transformation matrix.
     The matrix acts on the left.
     Parameters:
-      object (guid): The identifier of the object.
+      object_id (guid): The identifier of the object.
       matrix (transform): The transformation matrix (4x4 array of numbers).
       copy (bool, optional): Copy the object.
     Returns:
-      (guid): The identifier of the transformed object
+      guid: The identifier of the transformed object
       None: if not successful, or on error
     Example:
       # Rotate an object by theta degrees about the world Z axis
@@ -1772,7 +1770,7 @@ def TransformObjects(object_ids, matrix, copy=False):
     """Moves, scales, or rotates a list of objects given a 4x4 transformation
     matrix. The matrix acts on the left.
     Parameters:
-      object_ids [(guid, ...}): List of object identifiers.
+      object_ids ([guid, ...]): List of object identifiers.
       matrix (transform): The transformation matrix (4x4 array of numbers).
       copy (bool, optional): Copy the objects
     Returns:

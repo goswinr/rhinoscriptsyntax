@@ -78,10 +78,12 @@ def AddPictureFrame(plane, filename, width=0.0, height=0.0, self_illumination=Tr
   scriptcontext.doc.Views.Redraw()
   return rc
 
-def AddPoint(point, y=None, z=None):
+def AddPoint(pointOrX, y=None, z=None):
     """Adds point object to the document.
     Parameters:
-      point (point): a point3d or list(x,y,z) location of point to add
+      pointOrX (point|number): a point3d or X location of point to add
+      y (number, optional): Y location of point to add
+      z (number, optional): Z location of point to add
     Returns:
       guid: identifier for the object that was added to the doc
     Example:
@@ -91,7 +93,7 @@ def AddPoint(point, y=None, z=None):
       IsPoint
       PointCoordinates
     """
-    if y is not None: point = Rhino.Geometry.Point3d(point, y, z or 0.0)
+    if y is not None: point = Rhino.Geometry.Point3d(pointOrX, y, z or 0.0)
     point = rhutil.coerce3dpoint(point, True)
     rc = scriptcontext.doc.Objects.AddPoint(point)
     if rc==System.Guid.Empty: raise Exception("unable to add point to document")
@@ -363,7 +365,7 @@ def CompareGeometry(first, second):
       first (guid|geometry): The identifier of the first object to compare.
       second (guid|geometry): The identifier of the second object to compare.
     Returns:
-      True if the objects are geometrically identical, otherwise False.
+      bool: True if the objects are geometrically identical, otherwise False.
     Example:
       import rhinoscriptsyntax as rs
       object1 = rs.GetObject("Select first object")
@@ -578,6 +580,7 @@ def PointCloudHidePoints(object_id, hidden=[]):
       hidden ([bool, ....]): list of booleans matched to the index of points to be hidden
     Returns:
       list(bool, ....): List of point cloud hidden states
+      list(bool, ....): List of point cloud hidden states
     Example:
       import rhinoscriptsyntax as rs
       obj = rs.GetObject("Select point cloud", rs.filter.pointcloud)
@@ -612,6 +615,7 @@ def PointCloudPointColors(object_id, colors=[]):
       object_id (guid): the point cloud object's identifier
       colors ([color, ...]) list of color values if you want to adjust colors
     Returns:
+      list(color, ...): List of point cloud colors
       list(color, ...): List of point cloud colors
     Example:
       import rhinoscriptsyntax as rs
@@ -683,7 +687,7 @@ def PointCloudKNeighbors(pt_cloud, needle_points, amount=1):
       amount (int, optional): the amount of required closest points. Defaults to 1.
     Returns:
       [int, int,...]: a list of indices of the found points, if amount equals 1.
-      [[int, ...], ...]: nested lists with amount items within a list, with the indices of the found points.
+        [[int, ...], ...]: nested lists with amount items within a list, with the indices of the found points.
     Example:
 import rhinoscriptsyntax as rs
 id = rs.GetObject("Select point cloud", rs.filter.pointcloud)
@@ -787,7 +791,7 @@ def PointCoordinates(object_id, point=None):
 
 
 def TextDotFont(object_id, fontface=None):
-    """Returns or modified the font of a text dot
+    """Returns or modifies the font of a text dot
     Parameters:
       object_id (guid): identifier of a text dot object
       fontface (str, optional): new font face name
@@ -818,7 +822,7 @@ def TextDotFont(object_id, fontface=None):
 
 
 def TextDotHeight(object_id, height=None):
-    """Returns or modified the font height of a text dot
+    """Returns or modifies the font height of a text dot
     Parameters:
       object_id (guid): identifier of a text dot object
       height (number, optional) new font height
@@ -912,7 +916,7 @@ def TextDotText(object_id, text=None):
 
 
 def TextObjectFont(object_id, font=None):
-    """Returns of modifies the font used by a text object
+    """Returns or modifies the font used by a text object
     Parameters:
       object_id (guid): the identifier of a text object
       font (str): the new font face name
