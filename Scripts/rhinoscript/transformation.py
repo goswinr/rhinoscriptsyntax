@@ -491,7 +491,7 @@ def XformShear(plane, x, y, z):
     """Returns a shear transformation matrix
     Parameters:
       plane (plane): plane[0] is the fixed point
-      x,y,z (number): each axis scale factor
+      x,y,z (number): each axis scale vector
     Returns:
       transform: The 4x4 transformation matrix on success
     Example:
